@@ -12,15 +12,23 @@ public class gateManager : MonoBehaviour
     [SerializeField] private Material _blueMaterial;
     [SerializeField] private Material _redMaterial;
     [SerializeField] private bool _isDynamic;
+    private float _durationTime;
     
     private void OnEnable()
     {
         setColour();
         setValue();
-
+        _durationTime = Random.Range(1f, 3f);
         if (_isDynamic)
         {
-            transform.DOLocalMoveX(1f, 2f).SetLoops(-1, LoopType.Yoyo);
+            if (transform.localPosition.x > 0)
+            {
+                transform.DOLocalMoveX(-1f, _durationTime).SetLoops(-1, LoopType.Yoyo);
+            }
+            else
+            {
+                transform.DOLocalMoveX(1f, _durationTime).SetLoops(-1, LoopType.Yoyo);
+            }
         }
     }
 
