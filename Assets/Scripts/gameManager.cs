@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
-    [SerializeField] private int _targetFPS;
     private void OnEnable()
     {
-        Application.targetFrameRate = _targetFPS;
+        Application.targetFrameRate = 60;
     }
 }
