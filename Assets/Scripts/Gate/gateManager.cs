@@ -18,6 +18,7 @@ public class gateManager : MonoBehaviour
     {
         setColour();
         setValue();
+        
         _durationTime = Random.Range(1f, 3f);
         if (_isDynamic)
         {
@@ -62,6 +63,10 @@ public class gateManager : MonoBehaviour
         if (other.CompareTag("arrow"))
         {
             Debug.Log("Passed gate is: " + _gateText.text);
+            
+            GameObject arrow = GameObject.FindWithTag("arrow");
+            arrow.transform.GetComponent<BoxCollider>().enabled = false;
+            DOVirtual.DelayedCall(.6f, () => arrow.transform.GetComponent<BoxCollider>().enabled = true);
         }
     }
 }
