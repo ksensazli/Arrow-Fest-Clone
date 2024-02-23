@@ -6,7 +6,7 @@ using UnityEngine;
 public class gameManager : MonoBehaviour
 {
     [SerializeField] private int _targetFPS;
-    private void Awake()
+    private void OnEnable()
     {
         Application.targetFrameRate = _targetFPS;
     }

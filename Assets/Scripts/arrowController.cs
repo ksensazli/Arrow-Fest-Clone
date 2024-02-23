@@ -11,7 +11,7 @@ public class arrowController : MonoBehaviour
     private Vector3 _forwardMoveAmount;
     private inputManager _inputManager;
 
-    private void Awake()
+    private void OnEnable()
     {
         _inputManager = GetComponent<inputManager>();
     }
