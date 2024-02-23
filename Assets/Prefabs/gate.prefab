@@ -234,7 +234,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6bff43827ffb24b92ace9466bca7a786, type: 2}
+  - {fileID: 2100000, guid: 2b585fdd2e42041acbbf374f78e714f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 2377631473562431450}
   - component: {fileID: 8310778204581249020}
   m_Layer: 0
-  m_Name: blueGate
+  m_Name: gate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -318,6 +318,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58fcdbb3fdca457cb37e0cb8a0127af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gateType: 0
+  _gateValue: 0
+  _gateText: {fileID: 851924722}
+  gateRend: {fileID: 3991255411397683166}
+  _blueMaterial: {fileID: 2100000, guid: 1c38029b83c5f4af1a9d5220fd3c7fdc, type: 2}
+  _redMaterial: {fileID: 2100000, guid: 20fbef819c1944d4da5e021d6e85990b, type: 2}
 --- !u!65 &8310778204581249020
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -490,7 +496,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6bff43827ffb24b92ace9466bca7a786, type: 2}
+  - {fileID: 2100000, guid: 2b585fdd2e42041acbbf374f78e714f9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
