@@ -11,13 +11,16 @@ public class arrowController : MonoBehaviour
     [SerializeField] private float _slideSpeed;
     [SerializeField] private float _sideBounds;
     [SerializeField] private float _lerpSpeed;
-    [SerializeField] private GameObject _goldText;
+    [SerializeField] private TMPro.TMP_Text _goldText;
+    private int _collectedGold;
     private Vector3 _forwardMoveAmount;
     private inputManager _inputManager;
 
     private void OnEnable()
     {
         _inputManager = GetComponent<inputManager>();
+        _collectedGold = 0;
+        _goldText.text = _collectedGold.ToString();
     }
 
     private void Update()
@@ -50,6 +53,9 @@ public class arrowController : MonoBehaviour
             Debug.Log("Triggered gold");
             //other.transform.DOMove(_goldText.transform.position, 60f, false);
             other.transform.DOScale(0f, 0.2f).OnComplete(() => other.gameObject.SetActive(false));
+
+            _collectedGold++;
+            _goldText.text = _collectedGold.ToString();
         }
     }
 }
