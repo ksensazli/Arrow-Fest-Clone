@@ -11,35 +11,49 @@ public class gateManager : MonoBehaviour
     [SerializeField] private MeshRenderer _gateMesh;
     [SerializeField] private Material _blueMaterial;
     [SerializeField] private Material _redMaterial;
+    [SerializeField] private bool _isDynamic;
     
     private void OnEnable()
     {
-        updateColor();
-        updateText();
+        setColour();
+        setValue();
+
+        if (_isDynamic)
+        {
+            transform.DOLocalMoveX(1f, 2f).SetLoops(-1, LoopType.Yoyo);
+        }
     }
 
-    private void updateColor()
+    private void setColour()
     {
         _gateMesh.material = (_gateType == gateType.Minus || _gateType == gateType.Divide) ? _redMaterial : _blueMaterial;
     }
     
-    private void updateText()
+    private void setValue()
     {
         if (_gateType == gateType.Sum)
+        {
             _gateText.text = $"+{_gateValue}";
+        }
         else if (_gateType == gateType.Multiply)
+        {
             _gateText.text = $"x{_gateValue}";
+        }
         else if (_gateType == gateType.Minus)
+        {
             _gateText.text = $"-{_gateValue}";
+        }
         else
+        {
             _gateText.text = $"÷{_gateValue}";
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("arrow"))
         {
-            Debug.Log("carpisma");
+            Debug.Log("Passed gate is: " + _gateText.text);
         }
     }
 }
