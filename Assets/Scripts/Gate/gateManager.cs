@@ -63,6 +63,8 @@ public class gateManager : MonoBehaviour
         if (other.CompareTag("arrow"))
         {
             Debug.Log("Passed gate is: " + _gateText.text);
+
+            transform.DOKill();
             
             GameObject arrow = GameObject.FindWithTag("arrow");
             arrow.transform.GetComponent<BoxCollider>().enabled = false;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -10,6 +11,7 @@ public class arrowController : MonoBehaviour
     [SerializeField] private float _slideSpeed;
     [SerializeField] private float _sideBounds;
     [SerializeField] private float _lerpSpeed;
+    [SerializeField] private GameObject _goldText;
     private Vector3 _forwardMoveAmount;
     private inputManager _inputManager;
 
@@ -38,6 +40,16 @@ public class arrowController : MonoBehaviour
                 Mathf.Lerp(_player.localPosition.z, targetPosition.z, Time.fixedDeltaTime * _lerpSpeed));
 
             _player.localPosition = targetPositionLerp;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("gold"))
+        {
+            Debug.Log("Triggered gold");
+            //other.transform.DOMove(_goldText.transform.position, 60f, false);
+            other.transform.DOScale(0f, 0.2f).OnComplete(() => other.gameObject.SetActive(false));
         }
     }
 }
