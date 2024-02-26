@@ -71,6 +71,23 @@ public class gateManager : MonoBehaviour
         {
             Debug.Log("Passed gate is: " + _gateText.text);
             colliderReset();
+            transform.DOKill();
+
+            switch (_gateType)
+            {
+                case gateType.Sum:
+                    arrowController.Instance.arrowSum(_gateValue);
+                    break;
+                case gateType.Minus:
+                    arrowController.Instance.arrowMinus(_gateValue);
+                    break;
+                case gateType.Multiply:
+                    arrowController.Instance.arrowMultiply(_gateValue);
+                    break;
+                case gateType.Divide:
+                    arrowController.Instance.arrowDivide(_gateValue);
+                    break;
+            }
         }
     }
 }

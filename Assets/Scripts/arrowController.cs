@@ -4,28 +4,124 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Dreamteck.Splines;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class arrowController : MonoBehaviour
 {
     [SerializeField] private Transform _player;
+    [SerializeField] private GameObject _arrowObject;
     [SerializeField] private float _slideSpeed;
     [SerializeField] private float _sideBounds;
     [SerializeField] private float _lerpSpeed;
     [SerializeField] private TMPro.TMP_Text _goldText;
     private int _collectedGold;
+    private bool _isStart;
+    private bool _isStopped;
+    private SplineFollower _splineFollower;
     private Vector3 _forwardMoveAmount;
     private inputManager _inputManager;
+    private List<GameObject> arrowList = new List<GameObject>();
+    public int arrowCount => arrowList.Count;
+    
+    public static arrowController Instance { get; private set; }
 
     private void OnEnable()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        gameManager.onLevelStart += startGame;
         _inputManager = GetComponent<inputManager>();
+        _splineFollower = GetComponentInParent<SplineFollower>();
+        _splineFollower.followSpeed = 0;
         _collectedGold = 0;
         _goldText.text = _collectedGold.ToString();
     }
 
+    private void OnDisable()
+    {
+        gameManager.onLevelStart -= startGame;
+    }
+
     private void Update()
     {
+        if (!_isStart)
+        {
+            return;
+        }
+
+        if (_isStopped)
+        {
+            return;
+        }
+        
         movePlayer();
+
+        if (arrowCount < 0)
+        {
+            failedGame();
+        }
+    }
+
+    private void startGame()
+    {
+        _splineFollower.followSpeed = 8;
+        _isStart = true;
+    }
+
+    private void failedGame()
+    {
+        _isStopped = true;
+        _splineFollower.follow = false;
+    }
+
+    public void arrowMultiply(int amount)
+    {
+        if (amount < 2)
+            return;
+        
+        arrowSum((arrowCount + 1) * (amount - 1));
+    }
+
+    public void arrowDivide(int amount)
+    {
+        if (amount < 1)
+            return;
+        
+        float reduceAmount = (arrowCount + 1) * (amount - 1) / (float)amount;
+
+        arrowMinus(Mathf.CeilToInt(reduceAmount));
+    }
+
+    public void arrowSum(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject arrowClone = Instantiate(_arrowObject, transform);
+            arrowList.Add(arrowClone);
+        }
+        
+        circleArrow();
+    }
+
+    public void arrowMinus(int amount)
+    {
+        if (amount > arrowCount + 1)
+        {
+            failedGame();
+            return;
+        }
+        
+        for (int i = 0; i < amount -1; i++)
+        {
+            GameObject arrowClone = arrowList[0];
+            arrowList.RemoveAt(0);
+            Destroy(arrowClone);
+        }
+        arrowList.RemoveAt(0);
+        
+        circleArrow();
     }
     
     private void movePlayer()
@@ -43,6 +139,43 @@ public class arrowController : MonoBehaviour
                 Mathf.Lerp(_player.localPosition.z, targetPosition.z, Time.fixedDeltaTime * _lerpSpeed));
 
             _player.localPosition = targetPositionLerp;
+        }
+    }
+
+    private void circleArrow()
+    {
+        arrowList[0].transform.localPosition = Vector3.zero;
+        int arrowIndex = 1;
+        int circleOrder = 1;
+        
+        while (true)
+        {
+            float radius = circleOrder * .1f;
+
+            for (int i = 0; i < (circleOrder + 1) * 4; i++)
+            {
+                if (arrowIndex == arrowCount)
+                {
+                    return;
+                }
+
+                float radians = 2 * Mathf.PI / (circleOrder + 1) / 4 * i;
+                float vertical = Mathf.Sin(radians);
+                float horizontal = Mathf.Cos(radians);
+
+                Vector3 dir = new Vector3(horizontal, vertical, 0f);
+                Vector3 newPosition = dir * radius;
+
+                GameObject _arrow = arrowList[arrowIndex];
+
+                if (_arrow != null)
+                {
+                    _arrow.transform.DOKill();
+                    _arrow.transform.DOLocalMove(newPosition, 0.25f);
+                }
+                arrowIndex++;
+            }
+            circleOrder++;
         }
     }
 
