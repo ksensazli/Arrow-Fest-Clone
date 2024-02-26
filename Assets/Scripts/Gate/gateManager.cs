@@ -67,8 +67,8 @@ public class gateManager : MonoBehaviour
             transform.DOKill();
             
             GameObject arrow = GameObject.FindWithTag("arrow");
-            arrow.transform.GetComponent<BoxCollider>().enabled = false;
-            DOVirtual.DelayedCall(.6f, () => arrow.transform.GetComponent<BoxCollider>().enabled = true);
+            arrow.transform.GetComponent<CapsuleCollider>().enabled = false;
+            DOVirtual.DelayedCall(.6f, () => arrow.transform.GetComponent<CapsuleCollider>().enabled = true);
         }
     }
 }
