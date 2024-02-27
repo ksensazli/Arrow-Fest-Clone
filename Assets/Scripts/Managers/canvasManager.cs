@@ -32,8 +32,8 @@ public class canvasManager : MonoBehaviour
     
     private void Update()
     {
-        _arrowData = arrowController.Instance.arrowCount + 1;
-        _arrowCount.text = _arrowData.ToString();
+        //_arrowData = arrowController.Instance.arrowCount + 1;
+        _arrowCount.text = arrowController.Instance.arrowCount.ToString();
     }
 
     private void startScreen()

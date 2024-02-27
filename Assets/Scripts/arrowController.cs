@@ -21,7 +21,7 @@ public class arrowController : MonoBehaviour
     private Vector3 _forwardMoveAmount;
     private inputManager _inputManager;
     private List<GameObject> _arrowList = new List<GameObject>();
-    public int arrowCount => _arrowList.Count;
+    public int arrowCount => _arrowList.Count + 1;
     
     public static arrowController Instance { get; private set; }
 
@@ -83,7 +83,7 @@ public class arrowController : MonoBehaviour
         if (amount < 2)
             return;
         
-        arrowSum((arrowCount + 1) * (amount - 1));
+        arrowSum((arrowCount) * (amount - 1));
     }
 
     public void arrowDivide(int amount)
@@ -91,7 +91,7 @@ public class arrowController : MonoBehaviour
         if (amount < 1)
             return;
         
-        float reduceAmount = (arrowCount + 1) * (amount - 1) / (float)amount;
+        float reduceAmount = (arrowCount) * (amount - 1) / (float)amount;
 
         arrowMinus(Mathf.CeilToInt(reduceAmount));
     }
@@ -109,7 +109,7 @@ public class arrowController : MonoBehaviour
 
     public void arrowMinus(int amount)
     {
-        if (amount > arrowCount + 1)
+        if (amount > arrowCount)
         {
             failedGame();
             return;
