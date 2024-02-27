@@ -20,8 +20,8 @@ public class arrowController : MonoBehaviour
     private SplineFollower _splineFollower;
     private Vector3 _forwardMoveAmount;
     private inputManager _inputManager;
-    private List<GameObject> arrowList = new List<GameObject>();
-    public int arrowCount => arrowList.Count;
+    private List<GameObject> _arrowList = new List<GameObject>();
+    public int arrowCount => _arrowList.Count;
     
     public static arrowController Instance { get; private set; }
 
@@ -32,6 +32,7 @@ public class arrowController : MonoBehaviour
             Instance = this;
         }
         gameManager.onLevelStart += startGame;
+        gameManager.onLevelFailed += failedGame;
         _inputManager = GetComponent<inputManager>();
         _splineFollower = GetComponentInParent<SplineFollower>();
         _splineFollower.followSpeed = 0;
@@ -42,6 +43,7 @@ public class arrowController : MonoBehaviour
     private void OnDisable()
     {
         gameManager.onLevelStart -= startGame;
+        gameManager.onLevelFailed -= failedGame;
     }
 
     private void Update()
@@ -99,7 +101,7 @@ public class arrowController : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             GameObject arrowClone = Instantiate(_arrowObject, transform);
-            arrowList.Add(arrowClone);
+            _arrowList.Add(arrowClone);
         }
         
         circleArrow();
@@ -115,11 +117,11 @@ public class arrowController : MonoBehaviour
         
         for (int i = 0; i < amount -1; i++)
         {
-            GameObject arrowClone = arrowList[0];
-            arrowList.RemoveAt(0);
+            GameObject arrowClone = _arrowList[0];
+            _arrowList.RemoveAt(0);
             Destroy(arrowClone);
         }
-        arrowList.RemoveAt(0);
+        _arrowList.RemoveAt(0);
         
         circleArrow();
     }
@@ -144,7 +146,7 @@ public class arrowController : MonoBehaviour
 
     private void circleArrow()
     {
-        arrowList[0].transform.localPosition = Vector3.zero;
+        _arrowList[0].transform.localPosition = Vector3.zero;
         int arrowIndex = 1;
         int circleOrder = 1;
         
@@ -166,7 +168,7 @@ public class arrowController : MonoBehaviour
                 Vector3 dir = new Vector3(horizontal, vertical, 0f);
                 Vector3 newPosition = dir * radius;
 
-                GameObject _arrow = arrowList[arrowIndex];
+                GameObject _arrow = _arrowList[arrowIndex];
 
                 if (_arrow != null)
                 {

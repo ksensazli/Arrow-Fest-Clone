@@ -7,11 +7,11 @@ public class gameManager : MonoBehaviour
 {
     public static Action onLevelStart;
     public static Action onLevelCompleted;
-    public static Action onEndLevel;
+    public static Action onLevelFailed;
 
     private bool _isStart;
     private bool _isComplete;
-    private bool _isEnd;
+    private bool _isFailed;
     private void OnEnable()
     {
         Application.targetFrameRate = 60;
@@ -29,10 +29,10 @@ public class gameManager : MonoBehaviour
         _isComplete = true;
     }
 
-    private void endLevel()
+    private void failedLevel()
     {
-        onEndLevel?.Invoke();
-        _isEnd = true;
+        onLevelFailed?.Invoke();
+        _isFailed = true;
     }
 
     private void Update()
@@ -43,7 +43,7 @@ public class gameManager : MonoBehaviour
             return;
         }
         
-        if(!_isEnd || !_isComplete)
+        if(!_isFailed || !_isComplete)
             return;
     }
 }
