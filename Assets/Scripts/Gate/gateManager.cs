@@ -35,6 +35,7 @@ public class gateManager : MonoBehaviour
 
     private void colliderReset()
     {
+        transform.GetComponent<BoxCollider>().enabled = false;
         GameObject arrow = GameObject.FindWithTag("arrow");
         arrow.transform.GetComponent<CapsuleCollider>().enabled = false;
         DOVirtual.DelayedCall(.6f, () => arrow.transform.GetComponent<CapsuleCollider>().enabled = true);
