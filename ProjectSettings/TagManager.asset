@@ -6,6 +6,7 @@ TagManager:
   tags:
   - arrow
   - gold
+  - endLine
   layers:
   - Default
   - TransparentFX

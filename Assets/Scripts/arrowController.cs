@@ -185,12 +185,17 @@ public class arrowController : MonoBehaviour
     {
         if (other.CompareTag("gold"))
         {
-            Debug.Log("Triggered gold");
-            //other.transform.DOMove(_goldText.transform.position, 60f, false);
             other.transform.DOScale(0f, 0.2f).OnComplete(() => other.gameObject.SetActive(false));
-
             _collectedGold++;
             _goldText.text = _collectedGold.ToString();
+        }
+
+        if (other.CompareTag("endLine"))
+        {
+            _isStart = false;
+            _splineFollower.follow = false;
+            _player.DOLocalMoveX(0,1f,false);
+            _player.DOMoveZ((_player.transform.position.z + (arrowCount / 5)), 3f, false);
         }
     }
 }
