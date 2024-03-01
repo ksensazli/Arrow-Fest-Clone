@@ -42,8 +42,10 @@ public class gameManager : MonoBehaviour
             startLevel();
             return;
         }
-        
-        if(!_isFailed || !_isComplete)
+
+        if (!_isFailed || !_isComplete)
+        {
             return;
+        }
     }
 }

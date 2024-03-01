@@ -45,7 +45,9 @@ public class canvasManager : MonoBehaviour
 
     private void failedScreen()
     {
-        _infoScreen.SetActive(false);
-        _failedScreen.SetActive(true);
+        DOVirtual.DelayedCall(.2f, () => _infoScreen.SetActive(false)).OnComplete(() =>
+        {
+            _failedScreen.SetActive(true);
+        });
     }
 }
