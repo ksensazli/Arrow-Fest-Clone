@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4772982483226450552}
   - component: {fileID: 7195320266378700236}
   - component: {fileID: 5566569184034522240}
+  - component: {fileID: 838306629101482362}
   m_Layer: 0
   m_Name: gold
   m_TagString: gold
@@ -111,3 +112,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _goldAmount: 1
+--- !u!114 &838306629101482362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6256361989933789884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8daafb1efe9bd4f54b5478856bf4b318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 90
+  RotationVector: {x: 0, y: -1, z: 0}
