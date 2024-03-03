@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Dreamteck.Splines;
 using UnityEngine;
@@ -14,14 +15,15 @@ public class arrowController : MonoBehaviour
     [SerializeField] private float _sideBounds;
     [SerializeField] private float _lerpSpeed;
     [SerializeField] private TMPro.TMP_Text _goldText;
+    [SerializeField] private Collider _arrowCollider;
     private int _collectedGold;
     private bool _isStart;
     private bool _isStopped;
     private SplineFollower _splineFollower;
     private Vector3 _forwardMoveAmount;
     private inputManager _inputManager;
-    private List<GameObject> _arrowList = new List<GameObject>();
-    public int arrowCount => _arrowList.Count + 1;
+    [SerializeField] private List<GameObject> _arrowList = new List<GameObject>();
+    public int arrowCount => _arrowList.Count;
     
     public static arrowController Instance { get; private set; }
 
@@ -66,6 +68,12 @@ public class arrowController : MonoBehaviour
         }
     }
 
+    public void disableCollider()
+    {
+        _arrowCollider.enabled = false;
+        DOVirtual.DelayedCall(.6f, () => _arrowCollider.enabled = true);
+    }
+
     private void startGame()
     {
         _splineFollower.followSpeed = 8;
@@ -91,9 +99,11 @@ public class arrowController : MonoBehaviour
         if (amount < 1)
             return;
         
-        float reduceAmount = (arrowCount) * (amount - 1) / (float)amount;
-
-        arrowMinus(Mathf.CeilToInt(reduceAmount));
+        //float reduceAmount = (arrowCount) * (amount - 1) / (float)amount;
+        //Debug.Log("reduce amount is: " + reduceAmount);
+        int targetAmount = arrowCount / amount;
+        int reduceAmount = arrowCount - targetAmount;
+        arrowMinus(reduceAmount);
     }
 
     public void arrowSum(int amount)
@@ -115,13 +125,13 @@ public class arrowController : MonoBehaviour
             return;
         }
         
-        for (int i = 0; i < amount -1; i++)
+        for (int i = 0; i < amount; i++)
         {
-            GameObject arrowClone = _arrowList[0];
-            _arrowList.RemoveAt(0);
+            GameObject arrowClone = _arrowList[^1 ];
+            _arrowList.RemoveAt(_arrowList.Count - 1);
             Destroy(arrowClone);
         }
-        _arrowList.RemoveAt(0);
+        //_arrowList.RemoveAt(_);
         
         circleArrow();
     }

@@ -33,12 +33,10 @@ public class gateManager : MonoBehaviour
         }
     }
 
-    private void colliderReset()
+    private void colliderReset(Collider other)
     {
         transform.GetComponent<BoxCollider>().enabled = false;
-        GameObject arrow = GameObject.FindWithTag("arrow");
-        arrow.transform.GetComponent<CapsuleCollider>().enabled = false;
-        DOVirtual.DelayedCall(.6f, () => arrow.transform.GetComponent<CapsuleCollider>().enabled = true);
+        arrowController.Instance.disableCollider();
     }
 
     private void setColour()
@@ -71,7 +69,7 @@ public class gateManager : MonoBehaviour
         if (other.CompareTag("arrow"))
         {
             Debug.Log("Passed gate is: " + _gateText.text);
-            colliderReset();
+            colliderReset(other);
             transform.DOKill();
 
             switch (_gateType)
