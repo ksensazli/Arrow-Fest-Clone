@@ -9,28 +9,13 @@ public class gateManager : MonoBehaviour
     [SerializeField] private int _gateValue;
     [SerializeField] private TMP_Text _gateText;
     [SerializeField] private MeshRenderer _gateMesh;
-    [SerializeField] private Material _blueMaterial;
-    [SerializeField] private Material _redMaterial;
-    [SerializeField] private bool _isDynamic;
-    private float _durationTime;
     
-    private void OnEnable()
+    //OnEnable gateManager
+    //OnEnable GameConfig
+    protected virtual void OnEnable()
     {
         setColour();
         setValue();
-        
-        _durationTime = Random.Range(1f, 3f);
-        if (_isDynamic)
-        {
-            if (transform.localPosition.x > 0)
-            {
-                transform.DOLocalMoveX(-1f, _durationTime).SetLoops(-1, LoopType.Yoyo);
-            }
-            else
-            {
-                transform.DOLocalMoveX(1f, _durationTime).SetLoops(-1, LoopType.Yoyo);
-            }
-        }
     }
 
     private void colliderReset(Collider other)
@@ -41,7 +26,9 @@ public class gateManager : MonoBehaviour
 
     private void setColour()
     {
-        _gateMesh.material = (_gateType == gateType.Minus || _gateType == gateType.Divide) ? _redMaterial : _blueMaterial;
+        Debug.LogError(GameConfig.Instance);
+        _gateMesh.material = (_gateType == gateType.Minus || _gateType == gateType.Divide) 
+            ? GameConfig.Instance.RedMat :  GameConfig.Instance.BlueMat;
     }
     
     private void setValue()

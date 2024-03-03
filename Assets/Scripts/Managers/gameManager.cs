@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class gameManager : MonoBehaviour
 {
+    
+    public static gameManager Instance { get; private set; }
+    
     public static Action onLevelStart;
     public static Action onLevelCompleted;
     public static Action onLevelFailed;
@@ -12,12 +15,23 @@ public class gameManager : MonoBehaviour
     private bool _isStart;
     private bool _isComplete;
     private bool _isFailed;
-    private void OnEnable()
+
+    private void Awake()
     {
-        Application.targetFrameRate = 60;
+        if (Instance == null)
+        {
+            Instance = this;
+        }
     }
 
-    private void startLevel()
+    private void OnEnable()
+    {
+    
+        Application.targetFrameRate = 60;
+       
+    }
+
+    public void startLevel()
     {
         onLevelStart?.Invoke();
         _isStart = true;
@@ -29,23 +43,15 @@ public class gameManager : MonoBehaviour
         _isComplete = true;
     }
 
-    private void failedLevel()
+    public void restartLevel()
+    {
+        
+    }
+
+    public void failedLevel()
     {
         onLevelFailed?.Invoke();
         _isFailed = true;
-    }
-
-    private void Update()
-    {
-        if (!_isStart && Input.GetMouseButtonDown(0))
-        {
-            startLevel();
-            return;
-        }
-
-        if (!_isFailed || !_isComplete)
-        {
-            return;
-        }
+        Debug.LogError("Failed");
     }
 }

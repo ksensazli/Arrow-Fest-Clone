@@ -1,14 +1,12 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 using Dreamteck.Splines;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class arrowController : MonoBehaviour
 {
+    public static Action OnArrowsFinished;
     [SerializeField] private Transform _player;
     [SerializeField] private GameObject _arrowObject;
     [SerializeField] private float _slideSpeed;
@@ -34,7 +32,6 @@ public class arrowController : MonoBehaviour
             Instance = this;
         }
         gameManager.onLevelStart += startGame;
-        gameManager.onLevelFailed += failedGame;
         _inputManager = GetComponent<inputManager>();
         _splineFollower = GetComponentInParent<SplineFollower>();
         _splineFollower.followSpeed = 0;
@@ -45,7 +42,6 @@ public class arrowController : MonoBehaviour
     private void OnDisable()
     {
         gameManager.onLevelStart -= startGame;
-        gameManager.onLevelFailed -= failedGame;
     }
 
     private void Update()
@@ -61,11 +57,6 @@ public class arrowController : MonoBehaviour
         }
         
         movePlayer();
-
-        if (arrowCount < 0)
-        {
-            failedGame();
-        }
     }
 
     public void disableCollider()
@@ -84,6 +75,8 @@ public class arrowController : MonoBehaviour
     {
         _isStopped = true;
         _splineFollower.follow = false;
+     //   gameManager.onLevelFailed?.Invoke();
+        gameManager.Instance.failedLevel();
     }
 
     public void arrowMultiply(int amount)
@@ -119,21 +112,27 @@ public class arrowController : MonoBehaviour
 
     public void arrowMinus(int amount)
     {
-        if (amount > arrowCount)
+        var reduceAmount = Math.Min(amount, arrowCount);
+        for (int i = 0; i < reduceAmount; i++)
         {
-            failedGame();
-            return;
-        }
-        
-        for (int i = 0; i < amount; i++)
-        {
+            if (arrowCount<=0)
+            {
+                break;
+            }
             GameObject arrowClone = _arrowList[^1 ];
             _arrowList.RemoveAt(_arrowList.Count - 1);
             Destroy(arrowClone);
         }
         //_arrowList.RemoveAt(_);
         
-        circleArrow();
+        if (arrowCount <= 0)
+        {
+            failedGame();
+        }
+        else
+        {
+          //  circleArrow();
+        }
     }
     
     private void movePlayer()
@@ -193,12 +192,12 @@ public class arrowController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("gold"))
-        {
-            other.transform.DOScale(0f, 0.2f).OnComplete(() => other.gameObject.SetActive(false));
-            _collectedGold++;
-            _goldText.text = _collectedGold.ToString();
-        }
+        // if (other.CompareTag("gold"))
+        // {
+        //     other.transform.DOScale(0f, 0.2f).OnComplete(() => other.gameObject.SetActive(false));
+        //     _collectedGold++;
+        //     _goldText.text = _collectedGold.ToString();
+        // }
 
         if (other.CompareTag("endLine"))
         {

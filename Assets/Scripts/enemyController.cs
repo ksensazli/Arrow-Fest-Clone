@@ -8,14 +8,16 @@ using UnityEngine;
 public class enemyController : MonoBehaviour
 {
     [SerializeField] private int _enemyPower;
+    [SerializeField] private Collider _collider;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("arrow"))
         {
+            _collider.enabled = false;
             //An animated escape animation or script can be added here.
-            transform.DOMoveY(50, 2f, false);
-            transform.DOScale(0.001f, 1f).OnComplete(() =>
+            transform.DOMoveY(50, 2f);
+            transform.DOScale(0, 1f).OnComplete(() =>
             {
                 transform.gameObject.SetActive(false);
             });
