@@ -19,10 +19,4 @@ public class DynamicGate : gateManager
          transform.DOLocalMoveX(1f, _durationTime).SetLoops(-1, LoopType.Yoyo);
      }
    }
-
-   // protected override void Start()
-   // {
-   //     base.Start();
-   //    
-   // }
 }

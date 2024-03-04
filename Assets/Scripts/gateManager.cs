@@ -10,8 +10,6 @@ public class gateManager : MonoBehaviour
     [SerializeField] private TMP_Text _gateText;
     [SerializeField] private MeshRenderer _gateMesh;
     
-    //OnEnable gateManager
-    //OnEnable GameConfig
     protected virtual void OnEnable()
     {
         setColour();
@@ -26,7 +24,6 @@ public class gateManager : MonoBehaviour
 
     private void setColour()
     {
-        Debug.LogError(GameConfig.Instance);
         _gateMesh.material = (_gateType == gateType.Minus || _gateType == gateType.Divide) 
             ? GameConfig.Instance.RedMat :  GameConfig.Instance.BlueMat;
     }

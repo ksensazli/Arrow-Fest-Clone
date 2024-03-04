@@ -6,16 +6,14 @@ using UnityEngine;
 public class GameConfig : MonoBehaviour
 {
     public static GameConfig Instance { get; private set; }
-    [Title("Gates")]
+    [Title("Gates Material")]
     public Material RedMat;
     public Material BlueMat;
     private void Awake()
     {
-        Debug.LogError("Initialized");
         if (Instance == null)
         {
             Instance = this;
         }
     }
-    
 }

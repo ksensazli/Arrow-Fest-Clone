@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
@@ -26,9 +27,7 @@ public class gameManager : MonoBehaviour
 
     private void OnEnable()
     {
-    
-        Application.targetFrameRate = 60;
-       
+        Application.targetFrameRate = 120;
     }
 
     public void startLevel()
@@ -45,7 +44,7 @@ public class gameManager : MonoBehaviour
 
     public void restartLevel()
     {
-        
+        SceneManager.LoadScene(0);
     }
 
     public void failedLevel()
