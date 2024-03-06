@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7039250032823014591}
+  - component: {fileID: 130612940}
+  - component: {fileID: 130612938}
+  - component: {fileID: 130612942}
   m_Layer: 0
   m_Name: EnemyCharacter
   m_TagString: Untagged
@@ -23,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7039250032823014590}
-  m_LocalRotation: {x: -0, y: 0.9931767, z: -0.11661938, w: 0}
+  m_LocalRotation: {x: 0, y: 0.9931768, z: -0.11661869, w: 0}
   m_LocalPosition: {x: 0.25, y: 1.776, z: 23.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32,6 +35,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 13.394, y: 180, z: 0}
+--- !u!65 &130612940
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7039250032823014590}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.8775787, z: 1}
+  m_Center: {x: 0, y: 0.43878937, z: 0.000000007450581}
+--- !u!114 &130612938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7039250032823014590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 998e22a2738644846ac04fefee966a36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hips: {fileID: 7039250031270560866}
+  _animator: {fileID: 7039250031836342149}
+  _rigidbodies:
+  - {fileID: 7039250031270560866}
+  - {fileID: 7039250031098661886}
+  - {fileID: 7039250030854295054}
+  - {fileID: 7039250031661553506}
+  - {fileID: 7039250031675617812}
+  - {fileID: 7039250032828634289}
+  - {fileID: 7039250031439457463}
+  - {fileID: 7039250031412693040}
+  - {fileID: 7039250032624516691}
+  - {fileID: 7039250031759330058}
+  - {fileID: 7039250031824051055}
+--- !u!114 &130612942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7039250032823014590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bd9f0eaecd7487296cb5d948a35d60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyPower: 3
 --- !u!1001 &7039250032068819383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -118,8 +173,8 @@ Rigidbody:
   m_Mass: 1.25
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -133,10 +188,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.06390184
-  m_Height: 0.25560737
+  m_Radius: 0.052298505
+  m_Height: 0.25560734
   m_Direction: 1
-  m_Center: {x: 0, y: 0.12780368, z: 0}
+  m_Center: {x: -0.009959195, y: 0.12780368, z: -0.008409148}
 --- !u!144 &7039250031439457460
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -200,8 +255,8 @@ Rigidbody:
   m_Mass: 1.875
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -215,10 +270,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12578636
-  m_Height: 0.50314546
+  m_Radius: 0.091585875
+  m_Height: 0.5031455
   m_Direction: 1
-  m_Center: {x: 0, y: 0.25157273, z: 0}
+  m_Center: {x: -0.009886507, y: 0.2515617, z: -0.0031654835}
 --- !u!144 &7039250031675617815
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -282,8 +337,8 @@ Rigidbody:
   m_Mass: 1.875
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -297,10 +352,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.1283279
-  m_Height: 0.42775965
+  m_Radius: 0.08239601
+  m_Height: 0.42775962
   m_Direction: 1
-  m_Center: {x: 0, y: 0.21387982, z: 0}
+  m_Center: {x: -0.0055222567, y: 0.21388075, z: 0.00000028684735}
 --- !u!144 &7039250031661553507
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -364,8 +419,8 @@ Rigidbody:
   m_Mass: 1.875
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -379,10 +434,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12643987
+  m_Radius: 0.06162607
   m_Height: 0.5057595
   m_Direction: 1
-  m_Center: {x: 0, y: 0.25287974, z: 0}
+  m_Center: {x: -0.0010210574, y: 0.25287983, z: -0.018648818}
 --- !u!144 &7039250030854295041
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -426,7 +481,7 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
 --- !u!1 &5309594786855138739 stripped
@@ -446,8 +501,8 @@ Rigidbody:
   m_Mass: 1.25
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -461,10 +516,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.063927785
+  m_Radius: 0.05482769
   m_Height: 0.25571114
   m_Direction: 1
-  m_Center: {x: 0, y: 0.12785557, z: 0}
+  m_Center: {x: 0.00000010058284, y: 0.12785544, z: 0.00909999}
 --- !u!144 &7039250031759330059
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -528,8 +583,8 @@ Rigidbody:
   m_Mass: 3.125
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -609,8 +664,8 @@ Rigidbody:
   m_Mass: 1.25
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -691,8 +746,8 @@ Rigidbody:
   m_Mass: 1.25
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -707,8 +762,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.09300451
-  m_Center: {x: 0, y: 0.09300451, z: 0}
+  m_Radius: 0.10511963
+  m_Center: {x: 9.313226e-10, y: 0.09300424, z: 0.031145133}
 --- !u!144 &7039250032624516690
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -778,8 +833,8 @@ Rigidbody:
   m_Mass: 1.25
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -887,8 +942,8 @@ Rigidbody:
   m_Mass: 3.125
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -922,8 +977,8 @@ Rigidbody:
   m_Mass: 1.875
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -937,10 +992,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.12836951
-  m_Height: 0.42789835
+  m_Radius: 0.07825194
+  m_Height: 0.4278984
   m_Direction: 1
-  m_Center: {x: 0, y: 0.21394917, z: 0}
+  m_Center: {x: -0.0000000041909516, y: 0.21394916, z: -0.0000000037252903}
 --- !u!144 &7039250031098661887
 CharacterJoint:
   m_ObjectHideFlags: 0
@@ -984,6 +1039,6 @@ CharacterJoint:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_EnableCollision: 0
-  m_EnablePreprocessing: 0
+  m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
