@@ -6,17 +6,15 @@ using UnityEngine;
 
 public class arrowController : MonoBehaviour
 {
-    public static Action OnArrowsFinished;
     [SerializeField] private Transform _player;
     [SerializeField] private GameObject _arrowObject;
     [SerializeField] private float _slideSpeed;
     [SerializeField] private float _sideBounds;
     [SerializeField] private float _lerpSpeed;
-    [SerializeField] private TMPro.TMP_Text _goldText;
     [SerializeField] private Collider _arrowCollider;
-    private int _collectedGold;
     private bool _isStart;
     private bool _isStopped;
+    private bool _isEndLineReached;
     private SplineFollower _splineFollower;
     private Vector3 _forwardMoveAmount;
     private inputManager _inputManager;
@@ -35,8 +33,6 @@ public class arrowController : MonoBehaviour
         _inputManager = GetComponent<inputManager>();
         _splineFollower = GetComponentInParent<SplineFollower>();
         _splineFollower.followSpeed = 0;
-        _collectedGold = 0;
-        _goldText.text = _collectedGold.ToString();
     }
 
     private void OnDisable()
@@ -75,7 +71,6 @@ public class arrowController : MonoBehaviour
     {
         _isStopped = true;
         _splineFollower.follow = false;
-     //   gameManager.onLevelFailed?.Invoke();
         gameManager.Instance.failedLevel();
     }
 
@@ -91,9 +86,6 @@ public class arrowController : MonoBehaviour
     {
         if (amount < 1)
             return;
-        
-        //float reduceAmount = (arrowCount) * (amount - 1) / (float)amount;
-        //Debug.Log("reduce amount is: " + reduceAmount);
         int targetAmount = arrowCount / amount;
         int reduceAmount = arrowCount - targetAmount;
         arrowMinus(reduceAmount);
@@ -107,7 +99,7 @@ public class arrowController : MonoBehaviour
             _arrowList.Add(arrowClone);
         }
         
-        circleArrow();
+        circleArrow(1);
     }
 
     public void arrowMinus(int amount)
@@ -123,15 +115,10 @@ public class arrowController : MonoBehaviour
             _arrowList.RemoveAt(_arrowList.Count - 1);
             Destroy(arrowClone);
         }
-        //_arrowList.RemoveAt(_);
         
-        if (arrowCount <= 0)
+        if (arrowCount <= 0 && !_isEndLineReached)
         {
             failedGame();
-        }
-        else
-        {
-          //  circleArrow();
         }
     }
     
@@ -153,8 +140,10 @@ public class arrowController : MonoBehaviour
         }
     }
 
-    private void circleArrow()
+    private void circleArrow(int forEndVertical)
     {
+        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
+        
         _arrowList[0].transform.localPosition = Vector3.zero;
         int arrowIndex = 1;
         int circleOrder = 1;
@@ -162,7 +151,7 @@ public class arrowController : MonoBehaviour
         while (true)
         {
             float radius = circleOrder * .1f;
-
+            capsuleCollider.radius = 0.14f * circleOrder;
             for (int i = 0; i < (circleOrder + 1) * 4; i++)
             {
                 if (arrowIndex == arrowCount)
@@ -174,7 +163,7 @@ public class arrowController : MonoBehaviour
                 float vertical = Mathf.Sin(radians);
                 float horizontal = Mathf.Cos(radians);
 
-                Vector3 dir = new Vector3(horizontal, vertical, 0f);
+                Vector3 dir = new Vector3(horizontal, vertical / forEndVertical, 0f);
                 Vector3 newPosition = dir * radius;
 
                 GameObject _arrow = _arrowList[arrowIndex];
@@ -192,17 +181,12 @@ public class arrowController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // if (other.CompareTag("gold"))
-        // {
-        //     other.transform.DOScale(0f, 0.2f).OnComplete(() => other.gameObject.SetActive(false));
-        //     _collectedGold++;
-        //     _goldText.text = _collectedGold.ToString();
-        // }
-
         if (other.CompareTag("endLine"))
         {
             _isStart = false;
+            _isEndLineReached = true;
             _splineFollower.follow = false;
+            circleArrow(4);
             _player.DOLocalMoveX(0,1f,false);
             _player.DOMoveZ((_player.transform.position.z + (arrowCount / 5)), 3f, false);
         }

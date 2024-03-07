@@ -6,7 +6,6 @@ public class EnemyControllerCharacter : MonoBehaviour
 {
     [SerializeField] private Rigidbody _hips;
     [SerializeField] private Animator _animator;
-
     [SerializeField] private Rigidbody[] _rigidbodies;
     [Button]
     private void SetPreprocess()
@@ -36,7 +35,6 @@ public class EnemyControllerCharacter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.LogError("OnTriggerEnter");
         if (other.CompareTag("arrow"))
         {
             AddForce();
@@ -61,6 +59,5 @@ public class EnemyControllerCharacter : MonoBehaviour
         SetKinematic(false);
         _animator.enabled = false;
         _hips.AddForce(new Vector3(0,100,15) , ForceMode.Impulse);
-        
     }
 }
