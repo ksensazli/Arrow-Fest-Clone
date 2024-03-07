@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using DG.Tweening.Core;
 using Dreamteck.Splines;
 using UnityEngine;
 
@@ -16,7 +17,6 @@ public class arrowController : MonoBehaviour
     private bool _isStopped;
     private bool _isEndLineReached;
     private SplineFollower _splineFollower;
-    private Vector3 _forwardMoveAmount;
     private inputManager _inputManager;
     [SerializeField] private List<GameObject> _arrowList = new List<GameObject>();
     public int arrowCount => _arrowList.Count;
@@ -179,6 +179,18 @@ public class arrowController : MonoBehaviour
         }
     }
 
+    public void reachedEnd()
+    {
+        if (arrowCount > 0)
+        {
+            _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
+        }
+        else
+        {
+            GameConfig.Instance._winConfetties.Play();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("endLine"))
@@ -187,8 +199,8 @@ public class arrowController : MonoBehaviour
             _isEndLineReached = true;
             _splineFollower.follow = false;
             circleArrow(4);
-            _player.DOLocalMoveX(0,1f,false);
-            _player.DOMoveZ((_player.transform.position.z + (arrowCount / 5)), 3f, false);
+            _player.DOLocalMoveX(0,.15f,false);
+            _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
         }
     }
 }

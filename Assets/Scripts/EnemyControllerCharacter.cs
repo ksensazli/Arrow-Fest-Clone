@@ -38,6 +38,7 @@ public class EnemyControllerCharacter : MonoBehaviour
         if (other.CompareTag("arrow"))
         {
             AddForce();
+            arrowController.Instance.reachedEnd();
         }
     }
 

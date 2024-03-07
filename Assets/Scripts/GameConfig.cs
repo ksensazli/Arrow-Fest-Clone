@@ -9,6 +9,9 @@ public class GameConfig : MonoBehaviour
     [Title("Gates Material")]
     public Material RedMat;
     public Material BlueMat;
+
+    [Title("Particles")] 
+    public ParticleSystem _winConfetties;
     private void Awake()
     {
         if (Instance == null)
