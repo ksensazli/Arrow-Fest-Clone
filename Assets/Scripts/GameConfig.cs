@@ -11,7 +11,7 @@ public class GameConfig : MonoBehaviour
     public Material BlueMat;
 
     [Title("Particles")] 
-    public ParticleSystem _winConfetties;
+    public ParticleSystem[] _winConfetties;
     private void Awake()
     {
         if (Instance == null)

@@ -187,7 +187,10 @@ public class arrowController : MonoBehaviour
         }
         else
         {
-            GameConfig.Instance._winConfetties.Play();
+            for (int i = 0; i < GameConfig.Instance._winConfetties.Length; i++)
+            {
+                GameConfig.Instance._winConfetties[i].Play();
+            }
         }
     }
 
