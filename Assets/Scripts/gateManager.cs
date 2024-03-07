@@ -71,6 +71,12 @@ public class gateManager : MonoBehaviour
                     arrowController.Instance.arrowDivide(_gateValue);
                     break;
             }
+
+            transform.DOPunchPosition(Vector3.up * .25f, .25f, 1, 1, false).OnComplete(() =>
+            {
+                transform.DOMove(new Vector3(transform.localPosition.x, -5f, transform.localPosition.z), 1f, false);
+            });
+
         }
     }
 }
