@@ -4,6 +4,7 @@ using DG.Tweening;
 using DG.Tweening.Core;
 using Dreamteck.Splines;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class arrowController : MonoBehaviour
 {
@@ -18,8 +19,8 @@ public class arrowController : MonoBehaviour
     private bool _isEndLineReached;
     private SplineFollower _splineFollower;
     private inputManager _inputManager;
-    [SerializeField] private List<GameObject> _arrowList = new List<GameObject>();
-    public int arrowCount => _arrowList.Count;
+    public List<GameObject> arrowList = new List<GameObject>();
+    public int arrowCount => arrowList.Count;
     
     public static arrowController Instance { get; private set; }
 
@@ -96,7 +97,7 @@ public class arrowController : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             GameObject arrowClone = Instantiate(_arrowObject, transform);
-            _arrowList.Add(arrowClone);
+            arrowList.Add(arrowClone);
         }
         
         circleArrow(1);
@@ -111,8 +112,8 @@ public class arrowController : MonoBehaviour
             {
                 break;
             }
-            GameObject arrowClone = _arrowList[^1 ];
-            _arrowList.RemoveAt(_arrowList.Count - 1);
+            GameObject arrowClone = arrowList[^1 ];
+            arrowList.RemoveAt(arrowList.Count - 1);
             Destroy(arrowClone);
         }
         
@@ -144,7 +145,7 @@ public class arrowController : MonoBehaviour
     {
         CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
         
-        _arrowList[0].transform.localPosition = Vector3.zero;
+        arrowList[0].transform.localPosition = Vector3.zero;
         int arrowIndex = 1;
         int circleOrder = 1;
         
@@ -166,7 +167,7 @@ public class arrowController : MonoBehaviour
                 Vector3 dir = new Vector3(horizontal, vertical / forEndVertical, 0f);
                 Vector3 newPosition = dir * radius;
 
-                GameObject _arrow = _arrowList[arrowIndex];
+                GameObject _arrow = arrowList[arrowIndex];
 
                 if (_arrow != null)
                 {
@@ -181,7 +182,7 @@ public class arrowController : MonoBehaviour
 
     public void reachedEnd()
     {
-        if (arrowCount > 0)
+        if (arrowCount >= 1)
         {
             _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
         }

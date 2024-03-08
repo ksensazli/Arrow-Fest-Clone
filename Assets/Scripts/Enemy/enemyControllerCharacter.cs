@@ -2,7 +2,7 @@ using Sirenix.OdinInspector;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyControllerCharacter : MonoBehaviour
+public class enemyControllerCharacter : MonoBehaviour
 {
     [SerializeField] private Rigidbody _hips;
     [SerializeField] private Animator _animator;
@@ -38,7 +38,10 @@ public class EnemyControllerCharacter : MonoBehaviour
         if (other.CompareTag("arrow"))
         {
             AddForce();
-            arrowController.Instance.reachedEnd();
+            for (int i = 0; i < 3; i++)
+            {
+                arrowController.Instance.arrowList[i+1].transform.parent = transform.GetChild(0).GetChild(1).GetChild(1).parent;
+            }
         }
     }
 
@@ -55,7 +58,7 @@ public class EnemyControllerCharacter : MonoBehaviour
     }
 
     [Button]
-    private void AddForce()
+    protected virtual void AddForce()
     {
         SetKinematic(false);
         _animator.enabled = false;

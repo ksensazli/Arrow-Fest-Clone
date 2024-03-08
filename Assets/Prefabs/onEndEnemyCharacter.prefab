@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 7039250032823014591}
   - component: {fileID: 130612940}
-  - component: {fileID: 130612938}
-  - component: {fileID: 130612942}
+  - component: {fileID: 3082393716244970180}
+  - component: {fileID: 596928160796513269}
   m_Layer: 0
-  m_Name: EnemyCharacter
+  m_Name: onEndEnemyCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.8775787, z: 1}
   m_Center: {x: 0, y: 0.43878937, z: 0.000000007450581}
---- !u!114 &130612938
+--- !u!114 &3082393716244970180
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -57,7 +57,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7039250032823014590}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 998e22a2738644846ac04fefee966a36, type: 3}
+  m_Script: {fileID: 11500000, guid: b2df1df00c07943cb845e14044427e11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _hips: {fileID: 7039250031270560866}
@@ -74,7 +74,7 @@ MonoBehaviour:
   - {fileID: 7039250032624516691}
   - {fileID: 7039250031759330058}
   - {fileID: 7039250031824051055}
---- !u!114 &130612942
+--- !u!114 &596928160796513269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
