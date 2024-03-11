@@ -12,6 +12,7 @@ public class GameConfig : MonoBehaviour
     
     [Title("Levels")] 
     public GameObject[] Levels;
+    [HideInInspector] public int levelNum = 0;
 
     [Title("Particles")] 
     public ParticleSystem[] _winConfetties;

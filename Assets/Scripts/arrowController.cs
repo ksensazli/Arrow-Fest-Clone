@@ -13,7 +13,7 @@ public class arrowController : MonoBehaviour
     [SerializeField] private float _slideSpeed;
     [SerializeField] private float _sideBounds;
     [SerializeField] private float _lerpSpeed;
-    [SerializeField] private Collider _arrowCollider;
+    private CapsuleCollider _arrowCollider;
     private bool _isStart;
     private bool _isStopped;
     private bool _isEndLineReached;
@@ -30,6 +30,7 @@ public class arrowController : MonoBehaviour
             Instance = this;
         }
         gameManager.onLevelStart += startGame;
+        _arrowCollider = GetComponent<CapsuleCollider>();
         _inputManager = GetComponent<inputManager>();
         _splineFollower = GetComponentInParent<SplineFollower>();
         _splineFollower.followSpeed = 0;
@@ -147,8 +148,6 @@ public class arrowController : MonoBehaviour
 
     private void circleArrow(int forEndVertical)
     {
-        CapsuleCollider capsuleCollider = GetComponent<CapsuleCollider>();
-        
         arrowList[0].transform.localPosition = Vector3.zero;
         int arrowIndex = 1;
         int circleOrder = 1;
@@ -156,7 +155,7 @@ public class arrowController : MonoBehaviour
         while (true)
         {
             float radius = circleOrder * .1f;
-            capsuleCollider.radius = 0.14f * circleOrder;
+            _arrowCollider.radius = 0.14f * circleOrder;
             for (int i = 0; i < (circleOrder + 1) * 4; i++)
             {
                 if (arrowIndex == arrowCount)
@@ -186,13 +185,13 @@ public class arrowController : MonoBehaviour
 
     public void reachedEnd()
     {
-        if (arrowCount <= 0)
+        if (arrowCount < enemyPower.Instance._enemyPower)
         {
             for (int i = 0; i < GameConfig.Instance._winConfetties.Length; i++)
             {
                 GameConfig.Instance._winConfetties[i].Play();
-                finishLevel();
             }
+            finishLevel();
         }
         else
         {
@@ -210,6 +209,7 @@ public class arrowController : MonoBehaviour
             circleArrow(4);
             _player.DOLocalMoveX(0,.15f,false);
             _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
+            _arrowCollider.radius = 1;
         }
     }
 }

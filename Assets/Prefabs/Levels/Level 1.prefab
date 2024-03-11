@@ -7436,7 +7436,7 @@ PrefabInstance:
     - target: {fileID: 596928160796513269, guid: ce31bb082e5794752aceff86aa6a2595,
         type: 3}
       propertyPath: _enemyPower
-      value: 190
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7039250030854295041, guid: ce31bb082e5794752aceff86aa6a2595,
         type: 3}
@@ -8811,7 +8811,7 @@ PrefabInstance:
     - target: {fileID: 596928160796513269, guid: ce31bb082e5794752aceff86aa6a2595,
         type: 3}
       propertyPath: _enemyPower
-      value: 50
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 7039250030854295041, guid: ce31bb082e5794752aceff86aa6a2595,
         type: 3}

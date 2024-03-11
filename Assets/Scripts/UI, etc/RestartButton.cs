@@ -17,5 +17,7 @@ public class RestartButton : MonoBehaviour
     public void OnRestartButton()
     {
         gameManager.Instance.restartLevel();
+        canvasManager.Instance._failedScreen.SetActive(false);
+        canvasManager.Instance._startScreen.SetActive(true);
     }
 }

@@ -5,7 +5,7 @@ public class goldManager : MonoBehaviour
 {
     public const string GOLD_KEY = "Gold";
     [SerializeField] private TMPro.TMP_Text _goldText;
-    [SerializeField] private int _goldAmount;
+    private int _goldAmount;
     private void OnEnable()
     {
         gold.OnGoldCollected += OnGoldCollected;

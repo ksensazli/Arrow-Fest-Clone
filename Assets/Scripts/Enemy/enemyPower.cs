@@ -7,7 +7,17 @@ using UnityEngine;
 
 public class enemyPower : MonoBehaviour
 {
-    [SerializeField] private int _enemyPower;
+    public int _enemyPower;
+
+    public static enemyPower Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {

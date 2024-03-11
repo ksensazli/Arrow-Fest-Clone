@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -9,8 +10,6 @@ public class levelManager : MonoBehaviour
 {
     public static levelManager Instance { get; private set; }
     private GameObject level;
-
-    public int levelCount;
     private void Awake()
     {
         if (Instance == null)
@@ -20,18 +19,12 @@ public class levelManager : MonoBehaviour
         initLevel();
     }
 
-    public void clearLevel()
-    {
-        Destroy(level);
-    }
-
     public void initLevel()
     {
-        level = Instantiate(GameConfig.Instance.Levels[0], transform);
-    }
-
-    public void nextLevel()
-    {
-        level = Instantiate(GameConfig.Instance.Levels[1], transform);
+        if (level != null)
+        {
+            Destroy(level);
+        }
+        level = Instantiate(GameConfig.Instance.Levels[(GameConfig.Instance.levelNum)], transform);
     }
 }
