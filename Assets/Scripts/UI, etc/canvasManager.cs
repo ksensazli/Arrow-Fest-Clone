@@ -1,33 +1,36 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class canvasManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _startScreen;
-    [SerializeField] private GameObject _infoScreen;
-    [SerializeField] private GameObject _failedScreen;
-    [SerializeField] private TMPro.TMP_Text _arrowCount;
-    [SerializeField] private TMPro.TMP_Text _levelCount;
-    private int _arrowData;
+    public GameObject _startScreen;
+    public GameObject _infoScreen;
+    public GameObject _failedScreen;
+    public GameObject _finishScreen;
+    public TMPro.TMP_Text _arrowCount;
+    public TMPro.TMP_Text _levelCount;
+    
+    public static canvasManager Instance { get; private set; }
 
     private void OnEnable()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
         gameManager.onLevelStart += startScreen;
         gameManager.onLevelFailed += failedScreen;
+        gameManager.onLevelCompleted += finishScreen;
         _startScreen.SetActive(true);
-        _levelCount.text = "LEVEL " + (SceneManager.GetActiveScene().buildIndex + 1).ToString();
+        _levelCount.text = GameConfig.Instance.Levels[0].ToString().PartBefore('(');
     }
 
     private void OnDisable()
     {
         gameManager.onLevelStart -= startScreen;
         gameManager.onLevelFailed -= failedScreen;
+        gameManager.onLevelCompleted -= finishScreen;
     }
     
     private void Update()
@@ -51,6 +54,14 @@ public class canvasManager : MonoBehaviour
         DOVirtual.DelayedCall(.2f, () => _infoScreen.SetActive(false)).OnComplete(() =>
         {
             _failedScreen.SetActive(true);
+        });
+    }
+
+    private void finishScreen()
+    {
+        DOVirtual.DelayedCall(.2f, () => _infoScreen.SetActive(false)).OnComplete(() =>
+        {
+            _finishScreen.SetActive(true);
         });
     }
 }

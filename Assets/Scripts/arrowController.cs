@@ -21,7 +21,6 @@ public class arrowController : MonoBehaviour
     private inputManager _inputManager;
     public List<GameObject> arrowList = new List<GameObject>();
     public int arrowCount => arrowList.Count;
-    
     public static arrowController Instance { get; private set; }
 
     private void OnEnable()
@@ -73,6 +72,11 @@ public class arrowController : MonoBehaviour
         _isStopped = true;
         _splineFollower.follow = false;
         gameManager.Instance.failedLevel();
+    }
+
+    private void finishLevel()
+    {
+        gameManager.Instance.completeLevel();
     }
 
     public void arrowMultiply(int amount)
@@ -182,11 +186,12 @@ public class arrowController : MonoBehaviour
 
     public void reachedEnd()
     {
-        if (arrowCount == 0)
+        if (arrowCount <= 0)
         {
             for (int i = 0; i < GameConfig.Instance._winConfetties.Length; i++)
             {
                 GameConfig.Instance._winConfetties[i].Play();
+                finishLevel();
             }
         }
         else

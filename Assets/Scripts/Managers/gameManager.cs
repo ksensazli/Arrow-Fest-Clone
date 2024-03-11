@@ -36,15 +36,9 @@ public class gameManager : MonoBehaviour
         //_isStart = true;
     }
     
-    private void completeLevel()
+    public void completeLevel()
     {
         onLevelCompleted?.Invoke();
-        //_isComplete = true;
-    }
-
-    public void restartLevel()
-    {
-        SceneManager.LoadScene(0);
     }
 
     public void failedLevel()
@@ -52,5 +46,17 @@ public class gameManager : MonoBehaviour
         onLevelFailed?.Invoke();
         //_isFailed = true;
         Debug.LogError("Failed");
+    }
+
+    public void restartLevel()
+    {
+        levelManager.Instance.clearLevel();
+        levelManager.Instance.initLevel();
+    }
+
+    public void nextLevel()
+    {
+        levelManager.Instance.clearLevel();
+        levelManager.Instance.nextLevel();
     }
 }
