@@ -13,9 +13,9 @@ public class gameManager : MonoBehaviour
     public static Action onLevelCompleted;
     public static Action onLevelFailed;
 
-    private bool _isStart;
-    private bool _isComplete;
-    private bool _isFailed;
+    //private bool _isStart;
+    //private bool _isComplete;
+    //private bool _isFailed;
 
     private void Awake()
     {
@@ -33,13 +33,13 @@ public class gameManager : MonoBehaviour
     public void startLevel()
     {
         onLevelStart?.Invoke();
-        _isStart = true;
+        //_isStart = true;
     }
     
     private void completeLevel()
     {
         onLevelCompleted?.Invoke();
-        _isComplete = true;
+        //_isComplete = true;
     }
 
     public void restartLevel()
@@ -50,7 +50,7 @@ public class gameManager : MonoBehaviour
     public void failedLevel()
     {
         onLevelFailed?.Invoke();
-        _isFailed = true;
+        //_isFailed = true;
         Debug.LogError("Failed");
     }
 }

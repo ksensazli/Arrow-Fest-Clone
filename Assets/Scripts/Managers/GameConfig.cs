@@ -9,6 +9,9 @@ public class GameConfig : MonoBehaviour
     [Title("Gates Material")]
     public Material RedMat;
     public Material BlueMat;
+    
+    [Title("Levels")] 
+    public GameObject[] Levels;
 
     [Title("Particles")] 
     public ParticleSystem[] _winConfetties;

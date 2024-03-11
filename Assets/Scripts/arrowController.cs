@@ -182,16 +182,16 @@ public class arrowController : MonoBehaviour
 
     public void reachedEnd()
     {
-        if (arrowCount >= 1)
-        {
-            _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
-        }
-        else
+        if (arrowCount == 0)
         {
             for (int i = 0; i < GameConfig.Instance._winConfetties.Length; i++)
             {
                 GameConfig.Instance._winConfetties[i].Play();
             }
+        }
+        else
+        {
+            _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
         }
     }
 

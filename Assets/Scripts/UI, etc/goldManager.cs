@@ -9,6 +9,8 @@ public class goldManager : MonoBehaviour
     private void OnEnable()
     {
         gold.OnGoldCollected += OnGoldCollected;
+        _goldAmount = PlayerPrefs.GetInt(GOLD_KEY);
+        _goldText.text = _goldAmount.ToString();
     }
 
     private void OnDisable()
@@ -18,6 +20,7 @@ public class goldManager : MonoBehaviour
 
     private void OnGoldCollected(int obj)
     {
+        _goldAmount = PlayerPrefs.GetInt(GOLD_KEY);
         _goldAmount += obj;
         _goldText.text = _goldAmount.ToString();
         DOTween.Kill(_goldText.transform);

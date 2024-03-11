@@ -33,9 +33,9 @@ public class canvasManager : MonoBehaviour
     private void Update()
     {
         _arrowCount.text = arrowController.Instance.arrowCount.ToString();
-        _arrowCount.transform.localScale = Vector3.one;
+        /*_arrowCount.transform.localScale = Vector3.one;
         _arrowCount.transform.DOPunchScale(Vector3.one * .25f, .15f)
-            .OnComplete(() => _arrowCount.transform.localScale = Vector3.one);
+            .OnComplete(() => _arrowCount.transform.localScale = Vector3.one);*/
     }
 
     private void startScreen()
