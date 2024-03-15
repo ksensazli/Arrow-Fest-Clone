@@ -7,6 +7,7 @@ public class enemyControllerCharacter : MonoBehaviour
     [SerializeField] private Rigidbody _hips;
     [SerializeField] private Animator _animator;
     [SerializeField] private Rigidbody[] _rigidbodies;
+    [SerializeField] private Transform _arrowParent;
     [Button]
     private void SetPreprocess()
     {
@@ -38,10 +39,7 @@ public class enemyControllerCharacter : MonoBehaviour
         if (other.CompareTag("arrow"))
         {
             AddForce();
-            for (int i = 0; i < 3; i++)
-            {
-                arrowController.Instance.arrowList[i+1].transform.parent = transform.GetChild(0).GetChild(1).GetChild(1).parent;
-            }
+            arrowController.Instance.killEnemy(_arrowParent);
         }
     }
 

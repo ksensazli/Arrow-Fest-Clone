@@ -1,30 +1,48 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Cinemachine;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class levelManager : MonoBehaviour
 {
     public static levelManager Instance { get; private set; }
-    private GameObject level;
+    public Level level;
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
         }
-        initLevel();
     }
 
-    public void initLevel()
+    [Button]
+    private void destroyLevel()
     {
         if (level != null)
         {
-            Destroy(level);
+            Destroy(level.gameObject);
         }
-        level = Instantiate(GameConfig.Instance.Levels[(GameConfig.Instance.levelNum)], transform);
     }
+
+    [Button]
+    public void initLevel()
+    {
+        // StartCoroutine(loadLevel());
+        if (level != null)
+        {
+            Destroy(level.gameObject);
+        }
+        PlayerPrefs.SetInt("Level", GameConfig.Instance.levelNum);
+        level = Instantiate(GameConfig.Instance.Levels[(PlayerPrefs.GetInt("Level"))], transform);
+    }
+
+    // private IEnumerator loadLevel()
+    // {
+    //     if (level != null)
+    //     {
+    //         Destroy(level);
+    //     }
+    //     yield return new WaitForEndOfFrame();
+    //     PlayerPrefs.SetInt("Level", GameConfig.Instance.levelNum);
+    //     level = Instantiate(GameConfig.Instance.Levels[(PlayerPrefs.GetInt("Level"))], transform);
+    // }
 }

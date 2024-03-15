@@ -23,6 +23,7 @@ public class canvasManager : MonoBehaviour
         gameManager.onLevelFailed += failedScreen;
         gameManager.onLevelCompleted += finishScreen;
         _startScreen.SetActive(true);
+        Debug.Log("canvas on enable");
         _levelCount.text = GameConfig.Instance.Levels[0].ToString().PartBefore('(');
     }
 

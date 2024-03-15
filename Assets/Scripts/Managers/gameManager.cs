@@ -6,13 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
-    
     public static gameManager Instance { get; private set; }
     
     public static Action onLevelStart;
+    public static Action onLevelLoaded;
     public static Action onLevelCompleted;
     public static Action onLevelFailed;
-    private int _highScore;
 
     private void Awake()
     {
@@ -22,9 +21,10 @@ public class gameManager : MonoBehaviour
         }
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        Application.targetFrameRate = 120;
+        Application.targetFrameRate = 60;
+        loadLevel();
     }
 
     public void startLevel()
@@ -44,12 +44,17 @@ public class gameManager : MonoBehaviour
 
     public void restartLevel()
     {
-        levelManager.Instance.initLevel();
+        loadLevel();
     }
 
     public void nextLevel()
     {
-        _highScore = GameConfig.Instance.levelNum++;
+        loadLevel();
+    }
+
+    public void loadLevel()
+    {
         levelManager.Instance.initLevel();
+        onLevelLoaded?.Invoke();
     }
 }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using DG.Tweening.Core;
 using Dreamteck.Splines;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -28,8 +27,10 @@ public class arrowController : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            Debug.Log("arrow Controller enable");
         }
         gameManager.onLevelStart += startGame;
+        gameManager.onLevelLoaded += onLevelLoaded;
         _arrowCollider = GetComponent<CapsuleCollider>();
         _inputManager = GetComponent<inputManager>();
         _splineFollower = GetComponentInParent<SplineFollower>();
@@ -39,6 +40,18 @@ public class arrowController : MonoBehaviour
     private void OnDisable()
     {
         gameManager.onLevelStart -= startGame;
+        gameManager.onLevelLoaded -= onLevelLoaded;
+        Debug.Log("arrow Controller disable");
+    }
+
+    private void onLevelLoaded()
+    {
+        _splineFollower.follow = false;
+        _splineFollower.spline = levelManager.Instance.level.splineComputer;
+        _splineFollower.Restart();
+        _arrowObject.gameObject.SetActive(true);
+        transform.localPosition = Vector3.up;
+        arrowList.Add(_arrowObject);
     }
 
     private void Update()
@@ -56,6 +69,11 @@ public class arrowController : MonoBehaviour
         movePlayer();
     }
 
+    public void killEnemy(Transform enemy)
+    {
+        arrowMinus(3);
+    }
+
     public void disableCollider()
     {
         _arrowCollider.enabled = false;
@@ -64,7 +82,11 @@ public class arrowController : MonoBehaviour
 
     private void startGame()
     {
+        _isStopped = false;
+        _isEndLineReached = false;
         _splineFollower.followSpeed = 8;
+        _splineFollower.follow = true;
+        _arrowCollider.enabled = true;
         _isStart = true;
     }
 
@@ -78,6 +100,7 @@ public class arrowController : MonoBehaviour
     private void finishLevel()
     {
         gameManager.Instance.completeLevel();
+        _arrowCollider.enabled = false;
     }
 
     public void arrowMultiply(int amount)
@@ -119,7 +142,14 @@ public class arrowController : MonoBehaviour
             }
             GameObject arrowClone = arrowList[^1 ];
             arrowList.RemoveAt(arrowList.Count - 1);
-            Destroy(arrowClone);
+            if (arrowCount == 0)
+            {
+                _arrowObject.gameObject.SetActive(false);
+            }
+            else
+            {
+                Destroy(arrowClone);
+            }
         }
         
         if (arrowCount <= 0 && !_isEndLineReached)
@@ -187,9 +217,9 @@ public class arrowController : MonoBehaviour
     {
         if (arrowCount < enemyPower.Instance._enemyPower)
         {
-            for (int i = 0; i < GameConfig.Instance._winConfetties.Length; i++)
+            for (int i = 0; i < GameConfig.Instance.winConfetties.Length; i++)
             {
-                GameConfig.Instance._winConfetties[i].Play();
+                GameConfig.Instance.winConfetties[i].Play();
             }
             finishLevel();
         }
@@ -206,10 +236,19 @@ public class arrowController : MonoBehaviour
             _isStart = false;
             _isEndLineReached = true;
             _splineFollower.follow = false;
+            
             circleArrow(4);
             _player.DOLocalMoveX(0,.15f,false);
             _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
             _arrowCollider.radius = 1;
+            if (GameConfig.Instance.levelNum == 1)
+            {
+                return;
+            }
+            else
+            {
+                GameConfig.Instance.levelNum++;
+            }
         }
     }
 }

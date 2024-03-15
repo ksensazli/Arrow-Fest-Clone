@@ -10,15 +10,24 @@ public class playerPrefsManager : MonoBehaviour
         {
             return PlayerPrefs.GetInt("Gold",0);
         }
-        set
+        /*set
         {
             PlayerPrefs.SetInt("Gold", value);
             gold.OnGoldCollected?.Invoke(value);
+        }*/
+    }
+
+    [ShowInInspector]
+    public int HighScore
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("Level");
         }
     }
     
     [Button]
-    public void ClearPlayerPrefs()
+    public void Clear()
     {
         PlayerPrefs.DeleteAll();
     }

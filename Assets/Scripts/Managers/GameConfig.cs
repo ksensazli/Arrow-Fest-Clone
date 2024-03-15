@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameConfig : MonoBehaviour
 {
@@ -11,11 +10,11 @@ public class GameConfig : MonoBehaviour
     public Material BlueMat;
     
     [Title("Levels")] 
-    public GameObject[] Levels;
-    [HideInInspector] public int levelNum = 0;
+    public Level[] Levels;
+    [HideInInspector] public int levelNum;
 
     [Title("Particles")] 
-    public ParticleSystem[] _winConfetties;
+    public ParticleSystem[] winConfetties;
     private void Awake()
     {
         if (Instance == null)
