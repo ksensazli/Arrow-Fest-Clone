@@ -20,6 +20,7 @@ public class canvasManager : MonoBehaviour
             Instance = this;
         }
         gameManager.onLevelStart += startScreen;
+        gameManager.onLevelLoaded += loadedScreen;
         gameManager.onLevelFailed += failedScreen;
         gameManager.onLevelCompleted += finishScreen;
         _startScreen.SetActive(true);
@@ -29,6 +30,7 @@ public class canvasManager : MonoBehaviour
     private void OnDisable()
     {
         gameManager.onLevelStart -= startScreen;
+        gameManager.onLevelLoaded -= loadedScreen;
         gameManager.onLevelFailed -= failedScreen;
         gameManager.onLevelCompleted -= finishScreen;
     }
@@ -36,7 +38,7 @@ public class canvasManager : MonoBehaviour
     private void Update()
     {
         _arrowCount.text = arrowController.Instance.arrowCount.ToString();
-        _levelCount.text = GameConfig.Instance.Levels[(PlayerPrefs.GetInt("Level"))].ToString().PartBefore('(');
+        
     }
 
     private void startScreen()
@@ -45,6 +47,11 @@ public class canvasManager : MonoBehaviour
         {
             _infoScreen.SetActive(true);
         });
+    }
+
+    private void loadedScreen()
+    {
+        _levelCount.text = GameConfig.Instance.Levels[(PlayerPrefs.GetInt("Level"))].ToString().PartBefore('(');
     }
 
     private void failedScreen()
