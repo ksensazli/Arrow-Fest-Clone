@@ -24,7 +24,6 @@ public class canvasManager : MonoBehaviour
         gameManager.onLevelCompleted += finishScreen;
         _startScreen.SetActive(true);
         Debug.Log("canvas on enable");
-        _levelCount.text = GameConfig.Instance.Levels[0].ToString().PartBefore('(');
     }
 
     private void OnDisable()
@@ -37,9 +36,7 @@ public class canvasManager : MonoBehaviour
     private void Update()
     {
         _arrowCount.text = arrowController.Instance.arrowCount.ToString();
-        /*_arrowCount.transform.localScale = Vector3.one;
-        _arrowCount.transform.DOPunchScale(Vector3.one * .25f, .15f)
-            .OnComplete(() => _arrowCount.transform.localScale = Vector3.one);*/
+        _levelCount.text = GameConfig.Instance.Levels[(PlayerPrefs.GetInt("Level"))].ToString().PartBefore('(');
     }
 
     private void startScreen()

@@ -49,6 +49,7 @@ public class arrowController : MonoBehaviour
         _splineFollower.follow = false;
         _splineFollower.spline = levelManager.Instance.level.splineComputer;
         _splineFollower.Restart();
+        _arrowCollider.radius = 0.10137f;
         _arrowObject.gameObject.SetActive(true);
         transform.localPosition = Vector3.up;
         arrowList.Add(_arrowObject);
@@ -71,7 +72,7 @@ public class arrowController : MonoBehaviour
 
     public void killEnemy(Transform enemy)
     {
-        arrowMinus(3);
+        //TO DO
     }
 
     public void disableCollider()
