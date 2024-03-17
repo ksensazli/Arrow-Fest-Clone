@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Dreamteck.Splines;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class arrowController : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     [SerializeField] private GameObject _arrowObject;
-    [SerializeField] private float _slideSpeed;
-    [SerializeField] private float _sideBounds;
-    [SerializeField] private float _lerpSpeed;
+    private float _slideSpeed = 0.01f;
+    private float _sideBounds = 2;
+    private float _lerpSpeed = 3;
     private CapsuleCollider _arrowCollider;
     private bool _isStart;
     private bool _isStopped;
@@ -49,7 +48,6 @@ public class arrowController : MonoBehaviour
         _splineFollower.follow = false;
         _splineFollower.spline = levelManager.Instance.level.splineComputer;
         _splineFollower.Restart();
-        _arrowCollider.radius = 0.10137f;
         _arrowObject.gameObject.SetActive(true);
         transform.localPosition = Vector3.up;
         arrowList.Add(_arrowObject);
@@ -66,7 +64,6 @@ public class arrowController : MonoBehaviour
         {
             return;
         }
-        
         movePlayer();
     }
 
@@ -88,6 +85,7 @@ public class arrowController : MonoBehaviour
         _splineFollower.followSpeed = 8;
         _splineFollower.follow = true;
         _arrowCollider.enabled = true;
+        _arrowCollider.radius = 0.10137f;
         _isStart = true;
     }
 

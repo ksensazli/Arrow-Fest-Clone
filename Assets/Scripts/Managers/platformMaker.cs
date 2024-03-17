@@ -18,7 +18,7 @@ public class platformMaker : MonoBehaviour
         _tubeGeneratorLeft.spline = levelManager.Instance.level.splineComputer;
         _tubeGeneratorRight.spline = levelManager.Instance.level.splineComputer;
         _endPath.SetActive(true);
-        _endLineCollider.localPosition = new Vector3(_endPath.transform.localPosition.x,
-            _endPath.transform.localPosition.y, _endPath.transform.localPosition.z - 13.35f);
+        _endPath.transform.position = _splineMesh.EvaluatePosition(1f) + 12.85f * Vector3.forward;
+        _endLineCollider.localPosition = _splineMesh.EvaluatePosition(1f) - 0.5f * Vector3.forward;
     }
 }
