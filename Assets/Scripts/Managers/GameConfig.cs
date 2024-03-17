@@ -21,5 +21,7 @@ public class GameConfig : MonoBehaviour
         {
             Instance = this;
         }
+
+        levelNum = PlayerPrefs.GetInt("Level");
     }
 }

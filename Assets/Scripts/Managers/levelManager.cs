@@ -26,7 +26,6 @@ public class levelManager : MonoBehaviour
     [Button]
     public void initLevel()
     {
-        // StartCoroutine(loadLevel());
         if (level != null)
         {
             Destroy(level.gameObject);
@@ -34,15 +33,4 @@ public class levelManager : MonoBehaviour
         PlayerPrefs.SetInt("Level", GameConfig.Instance.levelNum);
         level = Instantiate(GameConfig.Instance.Levels[(PlayerPrefs.GetInt("Level"))], transform);
     }
-
-    // private IEnumerator loadLevel()
-    // {
-    //     if (level != null)
-    //     {
-    //         Destroy(level);
-    //     }
-    //     yield return new WaitForEndOfFrame();
-    //     PlayerPrefs.SetInt("Level", GameConfig.Instance.levelNum);
-    //     level = Instantiate(GameConfig.Instance.Levels[(PlayerPrefs.GetInt("Level"))], transform);
-    // }
 }
