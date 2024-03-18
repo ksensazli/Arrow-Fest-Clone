@@ -9,7 +9,7 @@ public class objectPool : MonoBehaviour
     
     [SerializeField] private GameObject _objectToPool;
     private int _amountToPool = 100;
-    public List<GameObject> pooledObjects = new List<GameObject>();
+    private List<GameObject> pooledObjects = new List<GameObject>();
 
     private void Awake()
     {

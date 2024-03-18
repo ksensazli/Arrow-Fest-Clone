@@ -44,6 +44,15 @@ public class arrowController : MonoBehaviour
         Debug.Log("arrow Controller disable");
     }
 
+    private void getPooledObjects()
+    {
+        GameObject arrowClone = objectPool.Instance.GetPooledObject();
+        arrowClone.SetActive(true);
+        arrowClone.transform.parent = _arrowObject.transform.parent;
+        arrowClone.transform.localPosition = Vector3.zero;
+        arrowList.Add(arrowClone);
+    }
+
     private void OnLevelLoaded()
     {
         _splineFollower.follow = false;
@@ -57,10 +66,7 @@ public class arrowController : MonoBehaviour
         transform.localPosition = Vector3.up;
         for (int i = 0; i < additionalArrowAmount; i++)
         {
-            GameObject arrowClone = objectPool.Instance.GetPooledObject();
-            arrowClone.SetActive(true);
-            arrowClone.transform.parent = _arrowObject.transform.parent;
-            arrowList.Add(arrowClone);
+            getPooledObjects();
             circleArrow(1);
         }
     }
@@ -149,11 +155,7 @@ public class arrowController : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            GameObject arrowClone = objectPool.Instance.GetPooledObject();
-            arrowClone.SetActive(true);
-            arrowClone.transform.parent = _arrowObject.transform.parent;
-            arrowClone.transform.localPosition = Vector3.zero;
-            arrowList.Add(arrowClone);
+            getPooledObjects();
         }
 
         onArrowCountChanged(amount);

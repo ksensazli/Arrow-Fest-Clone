@@ -3,9 +3,7 @@ using UnityEngine;
 
 public class arrowCounter : MonoBehaviour
 {
-    public const string ARROW_KEY = "Arrow";
     [SerializeField] private TMPro.TMP_Text _arrowCount;
-    private int _initArrowAmount;
     private int _arrowAmount;
 
     private void OnEnable()
