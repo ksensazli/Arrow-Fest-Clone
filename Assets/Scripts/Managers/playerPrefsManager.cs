@@ -38,6 +38,10 @@ public class playerPrefsManager : MonoBehaviour
         {
             return PlayerPrefs.GetInt("Level");
         }
+        set
+        {
+            PlayerPrefs.SetInt("Level", value);
+        }
     }
     
     [Button]
