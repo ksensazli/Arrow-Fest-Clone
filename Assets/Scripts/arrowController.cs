@@ -120,6 +120,7 @@ public class arrowController : MonoBehaviour
             arrowList.RemoveAt(arrowList.Count - 1);
             Destroy(arrowClone);
         }
+        GameConfig.Instance.levelNum++;
     }
 
     public void arrowMultiply(int amount)
