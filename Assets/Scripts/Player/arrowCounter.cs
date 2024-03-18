@@ -11,13 +11,11 @@ public class arrowCounter : MonoBehaviour
     private void OnEnable()
     {
         arrowController.onArrowCountChanged += OnArrowCountChanged;
-        gameManager.onLevelLoaded += OnLevelLoaded;
     }
 
     private void OnDisable()
     {
         arrowController.onArrowCountChanged -= OnArrowCountChanged;
-        gameManager.onLevelLoaded -= OnLevelLoaded;
     }
 
     private void OnArrowCountChanged(int amount)
@@ -28,12 +26,5 @@ public class arrowCounter : MonoBehaviour
         _arrowCount.transform.localScale = Vector3.one;
         _arrowCount.transform.DOPunchScale(Vector3.one * .25f, .15f)
             .OnComplete(()=>_arrowCount.transform.localScale = Vector3.one);
-    }
-
-    private void OnLevelLoaded()
-    {
-        _initArrowAmount = PlayerPrefs.GetInt(ARROW_KEY);
-        _arrowAmount += _initArrowAmount;
-        _arrowCount.text = _arrowAmount.ToString();
     }
 }

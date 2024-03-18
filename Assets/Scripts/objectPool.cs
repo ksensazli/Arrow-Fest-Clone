@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Serialization;
 
 public class objectPool : MonoBehaviour
 {
     public static objectPool Instance { get; private set; }
     
-    [SerializeField] private GameObject objectToPool;
+    [SerializeField] private GameObject _objectToPool;
     private int _amountToPool = 100;
-    private List<GameObject> pooledObjects = new List<GameObject>();
+    public List<GameObject> pooledObjects = new List<GameObject>();
 
     private void Awake()
     {
@@ -22,7 +23,7 @@ public class objectPool : MonoBehaviour
     {
         for(int i = 0; i < _amountToPool; i++)
         {
-            GameObject objectClone = Instantiate(objectToPool);
+            GameObject objectClone = Instantiate(_objectToPool);
             objectClone.SetActive(false);
             objectClone.transform.SetParent(transform);
             pooledObjects.Add(objectClone);
@@ -39,5 +40,11 @@ public class objectPool : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public void returnToPool(GameObject obj)
+    {
+        obj.SetActive(false);
+        obj.transform.parent = transform;
     }
 }

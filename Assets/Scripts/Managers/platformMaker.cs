@@ -33,5 +33,7 @@ public class platformMaker : MonoBehaviour
         yield return new WaitForEndOfFrame();
         _endPath.SetActive(true);
         _endPath.transform.position = _splineMesh.EvaluatePosition(1f) + 12.85f * Vector3.forward;
+        //ROTATION
+        //levelManager.Instance.level.splineComputer.GetPoint...()
     }
 }

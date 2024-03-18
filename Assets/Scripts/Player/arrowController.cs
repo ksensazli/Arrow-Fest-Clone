@@ -49,11 +49,17 @@ public class arrowController : MonoBehaviour
         _splineFollower.follow = false;
         _splineFollower.spline = levelManager.Instance.level.splineComputer;
         _splineFollower.Restart();
+        arrowList.Clear();
         _arrowObject.gameObject.SetActive(true);
+        arrowList.Add(_arrowObject);
+        var additionalArrowAmount = PlayerPrefs.GetInt("Arrow");
+        onArrowCountChanged?.Invoke(additionalArrowAmount + 1);
         transform.localPosition = Vector3.up;
-        for (int i = 0; i < PlayerPrefs.GetInt("Arrow"); i++)
+        for (int i = 0; i < additionalArrowAmount; i++)
         {
-            GameObject arrowClone = Instantiate(_arrowObject, transform);
+            GameObject arrowClone = objectPool.Instance.GetPooledObject();
+            arrowClone.SetActive(true);
+            arrowClone.transform.parent = _arrowObject.transform.parent;
             arrowList.Add(arrowClone);
             circleArrow(1);
         }
@@ -143,7 +149,10 @@ public class arrowController : MonoBehaviour
     {
         for (int i = 0; i < amount; i++)
         {
-            GameObject arrowClone = Instantiate(_arrowObject, transform);
+            GameObject arrowClone = objectPool.Instance.GetPooledObject();
+            arrowClone.SetActive(true);
+            arrowClone.transform.parent = _arrowObject.transform.parent;
+            arrowClone.transform.localPosition = Vector3.zero;
             arrowList.Add(arrowClone);
         }
 
@@ -169,7 +178,7 @@ public class arrowController : MonoBehaviour
             }
             else
             {
-                Destroy(arrowClone);
+                objectPool.Instance.returnToPool(arrowClone);
             }
         }
         
