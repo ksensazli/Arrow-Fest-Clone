@@ -8,6 +8,7 @@ public class arrowController : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     [SerializeField] private GameObject _arrowObject;
+    public static Action<int> onArrowCountChanged;
     private float _slideSpeed = 0.01f;
     private float _sideBounds = 2;
     private float _lerpSpeed = 3;
@@ -50,7 +51,11 @@ public class arrowController : MonoBehaviour
         _splineFollower.Restart();
         _arrowObject.gameObject.SetActive(true);
         transform.localPosition = Vector3.up;
-        arrowList.Add(_arrowObject);
+        for (int i = 0; i < PlayerPrefs.GetInt("Arrow"); i++)
+        {
+            GameObject arrowClone = Instantiate(_arrowObject, transform);
+            arrowList.Add(arrowClone);
+        }
     }
 
     private void Update()
@@ -100,6 +105,12 @@ public class arrowController : MonoBehaviour
     {
         gameManager.Instance.completeLevel();
         _arrowCollider.enabled = false;
+        for (int i = 0; i < arrowCount; i++)
+        {
+            GameObject arrowClone = arrowList[^1 ];
+            arrowList.RemoveAt(arrowList.Count - 1);
+            Destroy(arrowClone);
+        }
     }
 
     public void arrowMultiply(int amount)
@@ -126,13 +137,15 @@ public class arrowController : MonoBehaviour
             GameObject arrowClone = Instantiate(_arrowObject, transform);
             arrowList.Add(arrowClone);
         }
-        
+
+        onArrowCountChanged(amount);
         circleArrow(1);
     }
 
     public void arrowMinus(int amount)
     {
         var reduceAmount = Math.Min(amount, arrowCount);
+        onArrowCountChanged(-reduceAmount);
         for (int i = 0; i < reduceAmount; i++)
         {
             if (arrowCount<=0)

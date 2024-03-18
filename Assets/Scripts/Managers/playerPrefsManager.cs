@@ -16,6 +16,20 @@ public class playerPrefsManager : MonoBehaviour
             gold.OnGoldCollected?.Invoke(value);
         }
     }
+    
+    [ShowInInspector]
+    public int InitialArrow
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("Arrow");
+        }
+        set
+        {
+            PlayerPrefs.SetInt("Arrow", value);
+            arrowController.onArrowCountChanged?.Invoke(value);
+        }
+    }
 
     [ShowInInspector]
     public int HighScore
