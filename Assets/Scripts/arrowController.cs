@@ -29,8 +29,8 @@ public class arrowController : MonoBehaviour
             Instance = this;
             Debug.Log("arrow Controller enable");
         }
-        gameManager.onLevelStart += startGame;
-        gameManager.onLevelLoaded += onLevelLoaded;
+        gameManager.onLevelStart += OnLevelStart;
+        gameManager.onLevelLoaded += OnLevelLoaded;
         _arrowCollider = GetComponent<CapsuleCollider>();
         _inputManager = GetComponent<inputManager>();
         _splineFollower = GetComponentInParent<SplineFollower>();
@@ -39,19 +39,18 @@ public class arrowController : MonoBehaviour
 
     private void OnDisable()
     {
-        gameManager.onLevelStart -= startGame;
-        gameManager.onLevelLoaded -= onLevelLoaded;
+        gameManager.onLevelStart -= OnLevelStart;
+        gameManager.onLevelLoaded -= OnLevelLoaded;
         Debug.Log("arrow Controller disable");
     }
 
-    private void onLevelLoaded()
+    private void OnLevelLoaded()
     {
         _splineFollower.follow = false;
         _splineFollower.spline = levelManager.Instance.level.splineComputer;
         _splineFollower.Restart();
         _arrowObject.gameObject.SetActive(true);
         transform.localPosition = Vector3.up;
-        Debug.Log("Init arrow: " + PlayerPrefs.GetInt("Arrow"));
         for (int i = 0; i < PlayerPrefs.GetInt("Arrow"); i++)
         {
             GameObject arrowClone = Instantiate(_arrowObject, transform);
@@ -85,7 +84,7 @@ public class arrowController : MonoBehaviour
         DOVirtual.DelayedCall(.6f, () => _arrowCollider.enabled = true);
     }
 
-    private void startGame()
+    private void OnLevelStart()
     {
         _isStopped = false;
         _isEndLineReached = false;
