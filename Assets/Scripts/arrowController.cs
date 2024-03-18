@@ -51,10 +51,12 @@ public class arrowController : MonoBehaviour
         _splineFollower.Restart();
         _arrowObject.gameObject.SetActive(true);
         transform.localPosition = Vector3.up;
+        Debug.Log("Init arrow: " + PlayerPrefs.GetInt("Arrow"));
         for (int i = 0; i < PlayerPrefs.GetInt("Arrow"); i++)
         {
             GameObject arrowClone = Instantiate(_arrowObject, transform);
             arrowList.Add(arrowClone);
+            circleArrow(1);
         }
     }
 
@@ -98,7 +100,14 @@ public class arrowController : MonoBehaviour
     {
         _isStopped = true;
         _splineFollower.follow = false;
-        gameManager.Instance.failedLevel();
+        if (_isEndLineReached)
+        {
+            return;
+        }
+        else
+        {
+            gameManager.Instance.failedLevel();
+        }
     }
 
     private void finishLevel()
@@ -227,6 +236,14 @@ public class arrowController : MonoBehaviour
 
     public void reachedEnd()
     {
+        if (_splineFollower.transform.position.z == _splineFollower.EvaluatePosition(1f).z)
+        {
+            _player.DOLocalMoveX(0,.15f,false);
+            _isStopped = true;
+            _isEndLineReached = true;
+            _arrowCollider.radius = 1;
+        }
+        
         if (arrowCount < enemyPower.Instance._enemyPower)
         {
             for (int i = 0; i < GameConfig.Instance.winConfetties.Length; i++)
@@ -238,29 +255,6 @@ public class arrowController : MonoBehaviour
         else
         {
             _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("endLine"))
-        {
-            _isStart = false;
-            _isEndLineReached = true;
-            _splineFollower.follow = false;
-            
-            circleArrow(4);
-            _player.DOLocalMoveX(0,.15f,false);
-            _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
-            _arrowCollider.radius = 1;
-            if (GameConfig.Instance.levelNum == 1)
-            {
-                return;
-            }
-            else
-            {
-                GameConfig.Instance.levelNum++;
-            }
         }
     }
 }

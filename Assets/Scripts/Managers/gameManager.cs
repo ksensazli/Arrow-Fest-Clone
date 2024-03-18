@@ -21,6 +21,7 @@ public class gameManager : MonoBehaviour
     private void Start()
     {
         Application.targetFrameRate = 60;
+        DG.Tweening.DOTween.SetTweensCapacity(500, 50);
         loadLevel();
     }
 
