@@ -10,11 +10,11 @@ public class playerPrefsManager : MonoBehaviour
         {
             return PlayerPrefs.GetInt("Gold",0);
         }
-        /*set
+        set
         {
             PlayerPrefs.SetInt("Gold", value);
             gold.OnGoldCollected?.Invoke(value);
-        }*/
+        }
     }
 
     [ShowInInspector]

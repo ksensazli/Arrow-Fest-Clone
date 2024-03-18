@@ -8,7 +8,6 @@ public class canvasManager : MonoBehaviour
     public GameObject _infoScreen;
     public GameObject _failedScreen;
     public GameObject _finishScreen;
-    public TMPro.TMP_Text _arrowCount;
     public TMPro.TMP_Text _levelCount;
     
     public static canvasManager Instance { get; private set; }
@@ -33,12 +32,6 @@ public class canvasManager : MonoBehaviour
         gameManager.onLevelLoaded -= loadedScreen;
         gameManager.onLevelFailed -= failedScreen;
         gameManager.onLevelCompleted -= finishScreen;
-    }
-    
-    private void Update()
-    {
-        _arrowCount.text = arrowController.Instance.arrowCount.ToString();
-        
     }
 
     private void startScreen()
