@@ -1,15 +1,21 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
+[Serializable]
+public class Pool
+{
+    public GameObject objectToPool;
+    public int amountToPool;
+    public List<GameObject> pooledObject = new List<GameObject>();
+}
 public class objectPool : MonoBehaviour
 {
     public static objectPool Instance { get; private set; }
     
-    [SerializeField] private GameObject _objectToPool;
-    private int _amountToPool = 100;
-    private List<GameObject> pooledObjects = new List<GameObject>();
+    public List<Pool> Pools = new List<Pool>();
 
     private void Awake()
     {
@@ -21,25 +27,34 @@ public class objectPool : MonoBehaviour
 
     private void Start()
     {
-        for(int i = 0; i < _amountToPool; i++)
+        for (int i = 0; i < Pools.Count; i++)
         {
-            GameObject objectClone = Instantiate(_objectToPool);
-            objectClone.SetActive(false);
-            objectClone.transform.SetParent(transform);
-            pooledObjects.Add(objectClone);
-        }
-    }
-    
-    public GameObject GetPooledObject()
-    {
-        for(int i = 0; i < _amountToPool; i++)
-        {
-            if(!pooledObjects[i].activeInHierarchy)
+            for(int j = 0; j < Pools[i].amountToPool; j++)
             {
-                return pooledObjects[i];
+                addObjectToPool(i);
             }
         }
-        return null;
+    }
+
+    public void addObjectToPool(int poolIndex)
+    {
+        GameObject objectClone = Instantiate(Pools[poolIndex].objectToPool);
+        objectClone.SetActive(false);
+        objectClone.transform.SetParent(transform);
+        Pools[poolIndex].pooledObject.Add(objectClone);
+    }
+    
+    public GameObject GetPooledObject(int obj)
+    {
+        for(int i = 0; i < Pools[obj].pooledObject.Count; i++)
+        {
+            if(!Pools[obj].pooledObject[i].activeInHierarchy)
+            {
+                return Pools[obj].pooledObject[i];
+            }
+        }
+        addObjectToPool(obj);
+        return Pools[obj].pooledObject[Pools[obj].pooledObject.Count - 1];
     }
 
     public void returnToPool(GameObject obj)

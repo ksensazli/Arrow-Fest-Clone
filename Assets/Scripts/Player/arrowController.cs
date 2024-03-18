@@ -46,7 +46,7 @@ public class arrowController : MonoBehaviour
 
     private void getPooledObjects()
     {
-        GameObject arrowClone = objectPool.Instance.GetPooledObject();
+        GameObject arrowClone = objectPool.Instance.GetPooledObject(0);
         arrowClone.SetActive(true);
         arrowClone.transform.parent = _arrowObject.transform.parent;
         arrowClone.transform.localPosition = Vector3.zero;
@@ -98,6 +98,7 @@ public class arrowController : MonoBehaviour
 
     private void OnLevelStart()
     {
+        _splineFollower.onEndReached -= OnEndReached;
         _isStopped = false;
         _isEndLineReached = false;
         _splineFollower.followSpeed = 8;
@@ -105,6 +106,7 @@ public class arrowController : MonoBehaviour
         _arrowCollider.enabled = true;
         _arrowCollider.radius = 0.10137f;
         _isStart = true;
+        _splineFollower.onEndReached += OnEndReached;
     }
 
     private void failedGame()
@@ -125,6 +127,8 @@ public class arrowController : MonoBehaviour
     {
         gameManager.Instance.completeLevel();
         _arrowCollider.enabled = false;
+        DOTween.Kill(_player.transform);
+        Debug.LogError("Finish Level");
         for (int i = 0; i < arrowCount; i++)
         {
             GameObject arrowClone = arrowList[^1 ];
@@ -188,6 +192,20 @@ public class arrowController : MonoBehaviour
         {
             failedGame();
         }
+
+        if (arrowCount <= 0 && _isEndLineReached)
+        {
+            for (int i = 0; i < GameConfig.Instance.winConfetties.Length; i++)
+            {
+                GameConfig.Instance.winConfetties[i].Play();
+            }
+            finishLevel();
+        }
+        // else if (_isEndLineReached)
+        // {
+        //     _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
+        // }
+        Debug.LogError("arrow count: " + arrowCount + " enemy power: " + amount);
     }
     
     private void movePlayer()
@@ -245,27 +263,12 @@ public class arrowController : MonoBehaviour
         }
     }
 
-    public void reachedEnd()
+    private void OnEndReached(double obj)
     {
-        if (_splineFollower.transform.position.z == _splineFollower.EvaluatePosition(1f).z)
-        {
-            _player.DOLocalMoveX(0,.15f,false);
-            _isStopped = true;
-            _isEndLineReached = true;
-            _arrowCollider.radius = 1;
-        }
-        
-        if (arrowCount < enemyPower.Instance._enemyPower)
-        {
-            for (int i = 0; i < GameConfig.Instance.winConfetties.Length; i++)
-            {
-                GameConfig.Instance.winConfetties[i].Play();
-            }
-            finishLevel();
-        }
-        else
-        {
-            _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
-        }
+        _player.DOLocalMoveX(0,.15f,false);
+        _isStopped = true;
+        _isEndLineReached = true;
+        _arrowCollider.radius = 1;
+        _player.DOMoveZ(165, 3f, false);
     }
 }

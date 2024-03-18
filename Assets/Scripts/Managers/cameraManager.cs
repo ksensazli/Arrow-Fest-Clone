@@ -4,6 +4,7 @@ using UnityEngine;
 public class cameraManager : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera _followerCamera;
+    [SerializeField] private CinemachineVirtualCamera _celebrationCamera;
     private void OnEnable()
     {
         gameManager.onLevelLoaded += OnLevelLoaded;

@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class enemyOnEnd : enemyControllerCharacter
 {
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("arrow"))
-        {
-            base.AddForce();
-            arrowController.Instance.reachedEnd();
-        }
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("arrow"))
+    //     {
+    //         base.AddForce();
+    //     }
+    // }
 }
