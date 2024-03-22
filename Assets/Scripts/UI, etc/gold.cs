@@ -9,14 +9,16 @@ public class gold : MonoBehaviour
 
   private void OnEnable()
   {
-    transform.localScale = new Vector3(1, 1, .1f);
-    transform.rotation = Quaternion.Euler(Vector3.zero);
+    // transform.localScale = new Vector3(1, 1, .1f);
+    // transform.rotation = Quaternion.Euler(Vector3.zero);
   }
 
   public void init(Transform gold, int goldAmount)
   {
     transform.localScale = gold.transform.localScale;
     transform.SetPositionAndRotation(gold.transform.position, gold.transform.rotation);
+
+    _goldAmount = goldAmount;
   }
 
   private void OnTriggerEnter(Collider other)

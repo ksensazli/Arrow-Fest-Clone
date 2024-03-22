@@ -61,5 +61,6 @@ public class playerPrefsManager : MonoBehaviour
     public void Clear()
     {
         PlayerPrefs.DeleteAll();
+        IncomeLevel = 1;
     }
 }

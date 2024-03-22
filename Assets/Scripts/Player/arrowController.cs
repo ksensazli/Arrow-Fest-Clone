@@ -6,12 +6,14 @@ using UnityEngine;
 
 public class arrowController : MonoBehaviour
 {
+    public static Action<int> onArrowCountChanged;
+    
     [SerializeField] private Transform _player;
     [SerializeField] private GameObject _arrowObject;
-    public static Action<int> onArrowCountChanged;
-    private float _slideSpeed = 0.01f;
-    private float _sideBounds = 2;
-    private float _lerpSpeed = 3;
+
+    [SerializeField] private float _slideSpeed = 0.01f;
+    [SerializeField] private float _sideBounds = 2;
+    [SerializeField] private float _lerpSpeed = 3;
     private CapsuleCollider _arrowCollider;
     private bool _isStart;
     private bool _isStopped;
@@ -202,23 +204,23 @@ public class arrowController : MonoBehaviour
             finishLevel();
         }
     }
-    
+    private Vector3 targetPosition = new Vector3(0,1,0);
     private void movePlayer()
     {
-        Vector3 targetPosition = _player.transform.localPosition;
+       
 
         if (Input.GetMouseButton(0))
-        {
-            targetPosition.x = 0;
-            targetPosition.x = _inputManager.DragAmountX * _slideSpeed;
-            targetPosition.x = Mathf.Clamp(targetPosition.x, -_sideBounds, _sideBounds);
-
-            Vector3 targetPositionLerp = new Vector3(Mathf.Lerp(_player.localPosition.x, targetPosition.x, Time.fixedDeltaTime * _lerpSpeed),
-                Mathf.Lerp(_player.localPosition.y, targetPosition.y, Time.fixedDeltaTime * _lerpSpeed),
-                Mathf.Lerp(_player.localPosition.z, targetPosition.z, Time.fixedDeltaTime * _lerpSpeed));
-
-            _player.localPosition = targetPositionLerp;
+        { 
+            targetPosition = _player.transform.localPosition;
+            targetPosition.x += _inputManager.DragAmountX * _slideSpeed;
+             targetPosition.x = Mathf.Clamp(targetPosition.x, -_sideBounds, _sideBounds);
         }
+        Debug.LogError(_inputManager.DragAmountX * _slideSpeed);
+        Vector3 targetPositionLerp = new Vector3(Mathf.MoveTowards(_player.localPosition.x, targetPosition.x, Time.deltaTime * _lerpSpeed),
+            Mathf.MoveTowards(_player.localPosition.y, targetPosition.y, Time.deltaTime * _lerpSpeed),
+            Mathf.MoveTowards(_player.localPosition.z, targetPosition.z, Time.deltaTime * _lerpSpeed));
+
+        _player.localPosition = targetPositionLerp;
     }
 
     private void circleArrow(int forEndVertical)

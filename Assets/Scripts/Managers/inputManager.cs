@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class inputManager : MonoBehaviour
 {
+    public static inputManager Instance { get; private set; }
+    public static Action onInputDown;
+
+    public bool IsInputDown => _isInputDown;
+    private bool _isInputDown;
+    
     private float _lastPosX;
     private float _dragAmountX;
     public float DragAmountX => _dragAmountX;
@@ -12,26 +18,34 @@ public class inputManager : MonoBehaviour
     public float DragAmountDeltaX => _dragAmountDelta;
     private float _startPosX;
     private float _offset;
-
-    public static Action onInputDown;
+    
+    
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+    }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            _isInputDown = true;
             onInputDown?.Invoke();
             _startPosX = Input.mousePosition.x;
             _lastPosX = _startPosX;
-            _offset = _dragAmountX;
         }
         else if (Input.GetMouseButton(0))
         {
-            _dragAmountX = Input.mousePosition.x - _startPosX + _offset;
-            _dragAmountDelta = Input.mousePosition.x - _lastPosX;
+            _isInputDown = true;
+            _dragAmountX = Input.mousePosition.x - _lastPosX;
             _lastPosX =  Input.mousePosition.x;
         }
         else if (Input.GetMouseButtonUp(0))
         {
+            _isInputDown = false;
             _dragAmountDelta = 0;
         }
     }
