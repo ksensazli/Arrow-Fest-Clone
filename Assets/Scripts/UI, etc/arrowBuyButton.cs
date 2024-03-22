@@ -8,12 +8,13 @@ public class arrowBuyButton : MonoBehaviour
     [SerializeField] private Button _buyButton;
     private int _goldAmount;
     private int _arrowAmount;
-    private int _costArrow = 50;
+    private float _costArrow;
     private void OnEnable()
     {
         _buyButton.onClick.AddListener(()=>OnBuyButton());
         _goldAmount = PlayerPrefs.GetInt("Gold");
         _arrowAmount = PlayerPrefs.GetInt("Arrow");
+        _costArrow = 50 * (PlayerPrefs.GetInt("Level") * 0.1f + 1);
     }
 
     private void OnDisable()

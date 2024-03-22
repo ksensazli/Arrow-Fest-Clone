@@ -6,11 +6,13 @@ public class goldManager : MonoBehaviour
     public const string GOLD_KEY = "Gold";
     [SerializeField] private TMPro.TMP_Text _goldText;
     private int _goldAmount;
+    private int _incomeLevel;
     private void OnEnable()
     {
         gold.OnGoldCollected += OnGoldCollected;
         _goldAmount = PlayerPrefs.GetInt(GOLD_KEY);
         _goldText.text = _goldAmount.ToString();
+        _incomeLevel = PlayerPrefs.GetInt("Income");
     }
 
     private void OnDisable()
@@ -21,7 +23,7 @@ public class goldManager : MonoBehaviour
     private void OnGoldCollected(int obj)
     {
         _goldAmount = PlayerPrefs.GetInt(GOLD_KEY);
-        _goldAmount += obj;
+        _goldAmount += obj * _incomeLevel;
         _goldText.text = _goldAmount.ToString();
         DOTween.Kill(_goldText.transform);
         _goldText.transform.localScale = Vector3.one;

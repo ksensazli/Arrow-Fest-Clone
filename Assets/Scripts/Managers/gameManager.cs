@@ -1,4 +1,6 @@
 using System;
+using Dreamteck.Splines;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class gameManager : MonoBehaviour
@@ -9,6 +11,8 @@ public class gameManager : MonoBehaviour
     public static Action onLevelLoaded;
     public static Action onLevelCompleted;
     public static Action onLevelFailed;
+    
+    private bool _isStart;
 
     private void Awake()
     {
@@ -16,6 +20,25 @@ public class gameManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void OnEnable()
+    {
+        inputManager.onInputDown += OnInputDown;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.onInputDown -= OnInputDown;
+    }
+
+    private void OnInputDown()
+    {
+        if (_isStart)
+        {
+            return;
+        }
+        //startLevel();
     }
 
     private void Start()
@@ -28,6 +51,7 @@ public class gameManager : MonoBehaviour
     public void startLevel()
     {
         onLevelStart?.Invoke();
+        _isStart = true;
     }
     
     public void completeLevel()
@@ -52,6 +76,7 @@ public class gameManager : MonoBehaviour
 
     public void loadLevel()
     {
+        _isStart = false;
         levelManager.Instance.initLevel();
         onLevelLoaded?.Invoke();
     }

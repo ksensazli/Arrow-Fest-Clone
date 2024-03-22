@@ -1,14 +1,16 @@
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class canvasManager : MonoBehaviour
 {
     public GameObject _startScreen;
-    public GameObject _infoScreen;
     public GameObject _failedScreen;
     public GameObject _finishScreen;
     public TMPro.TMP_Text _levelCount;
+    [SerializeField] private RectTransform _tapImage;
+    
     
     public static canvasManager Instance { get; private set; }
 
@@ -23,7 +25,7 @@ public class canvasManager : MonoBehaviour
         gameManager.onLevelFailed += failedScreen;
         gameManager.onLevelCompleted += finishScreen;
         _startScreen.SetActive(true);
-        Debug.Log("canvas on enable");
+        _tapImage.DOAnchorPosX(120, 1.5f).SetLoops(-1, LoopType.Yoyo);
     }
 
     private void OnDisable()
@@ -36,10 +38,7 @@ public class canvasManager : MonoBehaviour
 
     private void startScreen()
     {
-        DOVirtual.DelayedCall(.1f, () => _startScreen.SetActive(false)).OnComplete(() =>
-        {
-            _infoScreen.SetActive(true);
-        });
+        DOVirtual.DelayedCall(.1f, () => _startScreen.SetActive(false));
     }
 
     private void loadedScreen()
@@ -49,17 +48,11 @@ public class canvasManager : MonoBehaviour
 
     private void failedScreen()
     {
-        DOVirtual.DelayedCall(.2f, () => _infoScreen.SetActive(false)).OnComplete(() =>
-        {
-            _failedScreen.SetActive(true);
-        });
+        DOVirtual.DelayedCall(.2f, () => _failedScreen.SetActive(true));
     }
 
     private void finishScreen()
     {
-        DOVirtual.DelayedCall(.2f, () => _infoScreen.SetActive(false)).OnComplete(() =>
-        {
-            _finishScreen.SetActive(true);
-        });
+        DOVirtual.DelayedCall(.2f, () => _finishScreen.SetActive(true));
     }
 }

@@ -14,6 +14,7 @@ public class goldSpawner : MonoBehaviour
             GameObject goldClone = objectPool.Instance.GetPooledObject(1);
             goldClone.SetActive(true);
             goldClone.transform.position = _goldObjects[i].transform.position;
+            goldClone.transform.localScale = _goldObjects[i].transform.localScale;
         }
     }
 }

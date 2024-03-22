@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,10 +12,14 @@ public class inputManager : MonoBehaviour
     public float DragAmountDeltaX => _dragAmountDelta;
     private float _startPosX;
     private float _offset;
+
+    public static Action onInputDown;
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            onInputDown?.Invoke();
             _startPosX = Input.mousePosition.x;
             _lastPosX = _startPosX;
             _offset = _dragAmountX;

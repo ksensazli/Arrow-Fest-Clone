@@ -44,17 +44,17 @@ public class objectPool : MonoBehaviour
         Pools[poolIndex].pooledObject.Add(objectClone);
     }
     
-    public GameObject GetPooledObject(int obj)
+    public GameObject GetPooledObject(int poolIndex)
     {
-        for(int i = 0; i < Pools[obj].pooledObject.Count; i++)
+        for(int i = 0; i < Pools[poolIndex].pooledObject.Count; i++)
         {
-            if(!Pools[obj].pooledObject[i].activeInHierarchy)
+            if(!Pools[poolIndex].pooledObject[i].activeInHierarchy)
             {
-                return Pools[obj].pooledObject[i];
+                return Pools[poolIndex].pooledObject[i];
             }
         }
-        addObjectToPool(obj);
-        return Pools[obj].pooledObject[Pools[obj].pooledObject.Count - 1];
+        addObjectToPool(poolIndex);
+        return Pools[poolIndex].pooledObject[Pools[poolIndex].pooledObject.Count - 1];
     }
 
     public void returnToPool(GameObject obj)

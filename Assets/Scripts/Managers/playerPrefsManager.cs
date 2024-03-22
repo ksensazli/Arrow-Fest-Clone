@@ -30,6 +30,19 @@ public class playerPrefsManager : MonoBehaviour
             arrowController.onArrowCountChanged?.Invoke(value);
         }
     }
+    
+    [ShowInInspector]
+    public int IncomeLevel
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("Income");
+        }
+        set
+        {
+            PlayerPrefs.SetInt("Income", value);
+        }
+    }
 
     [ShowInInspector]
     public int HighScore

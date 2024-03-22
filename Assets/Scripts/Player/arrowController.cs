@@ -201,11 +201,6 @@ public class arrowController : MonoBehaviour
             }
             finishLevel();
         }
-        // else if (_isEndLineReached)
-        // {
-        //     _player.DOMoveZ(_player.transform.position.z + 3f, .5f, false);
-        // }
-        Debug.LogError("arrow count: " + arrowCount + " enemy power: " + amount);
     }
     
     private void movePlayer()
@@ -269,6 +264,7 @@ public class arrowController : MonoBehaviour
         _isStopped = true;
         _isEndLineReached = true;
         _arrowCollider.radius = 1;
+        circleArrow(4);
         _player.DOMoveZ(165, 3f, false);
     }
 }
