@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3082393716244970180}
   - component: {fileID: 596928160796513269}
   m_Layer: 0
-  m_Name: onEndEnemyCharacter
+  m_Name: enemy character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,15 +26,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7039250032823014590}
-  m_LocalRotation: {x: 0, y: 0.9931768, z: -0.11661869, w: 0}
-  m_LocalPosition: {x: 0.25, y: 1.776, z: 23.01}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7366422133152620124}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 13.394, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!65 &130612940
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -74,6 +74,7 @@ MonoBehaviour:
   - {fileID: 7039250032624516691}
   - {fileID: 7039250031759330058}
   - {fileID: 7039250031824051055}
+  _enemy: {fileID: 0}
 --- !u!114 &596928160796513269
 MonoBehaviour:
   m_ObjectHideFlags: 0

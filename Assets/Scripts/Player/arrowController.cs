@@ -18,7 +18,7 @@ public class arrowController : MonoBehaviour
     private bool _isStart;
     private bool _isStopped;
     private bool _isEndLineReached;
-    private SplineFollower _splineFollower;
+    [HideInInspector] public SplineFollower _splineFollower;
     private inputManager _inputManager;
     public List<GameObject> arrowList = new List<GameObject>();
     public int arrowCount => arrowList.Count;

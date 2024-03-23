@@ -1,4 +1,5 @@
 using Cinemachine;
+using Dreamteck.Splines;
 using UnityEngine;
 
 public class cameraManager : MonoBehaviour
@@ -24,15 +25,18 @@ public class cameraManager : MonoBehaviour
         _followerCamera.transform.position = new Vector3(0f, 7f, -9f);
         _followerCamera.transform.rotation = Quaternion.Euler(17.354f, 0f, 0f);
         _followerCamera.enabled = true;
+        _celebrationCamera.enabled = false;
     }
 
     private void OnLevelCompleted()
     {
         _followerCamera.enabled = false;
+        _celebrationCamera.enabled = true;
     }
     
     private void OnLevelFailed()
     {
         _followerCamera.enabled = false;
+        _celebrationCamera.enabled = true;
     }
 }
