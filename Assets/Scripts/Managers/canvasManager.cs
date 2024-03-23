@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -44,6 +45,8 @@ public class canvasManager : MonoBehaviour
 
     private void Update()
     {
+        _arrowController.transform.position =
+            Camera.main.WorldToScreenPoint(arrowController.Instance._arrowObject.transform.position);
         _arrowLevel.text = "Level " + (PlayerPrefs.GetInt("Arrow") + 1).ToString();
         _arrowCost.text = "Cost " + (50 * (PlayerPrefs.GetInt("Level") * 0.1f + 1)).ToString();
         _incomeLevel.text = "Level " + PlayerPrefs.GetInt("Income").ToString();

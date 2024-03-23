@@ -1,4 +1,5 @@
 using Cinemachine;
+using DG.Tweening;
 using Dreamteck.Splines;
 using UnityEngine;
 
@@ -19,6 +20,16 @@ public class cameraManager : MonoBehaviour
         gameManager.onLevelCompleted -= OnLevelCompleted;
         gameManager.onLevelFailed -= OnLevelFailed;
     }
+
+    private void resetCamera()
+    {
+        _followerCamera.enabled = false;
+        _celebrationCamera.enabled = true;
+        DOVirtual.DelayedCall(1f, () =>
+        {
+            _celebrationCamera.enabled = false;
+        });
+    }
     
     private void OnLevelLoaded()
     {
@@ -30,13 +41,11 @@ public class cameraManager : MonoBehaviour
 
     private void OnLevelCompleted()
     {
-        _followerCamera.enabled = false;
-        _celebrationCamera.enabled = true;
+        resetCamera();
     }
     
     private void OnLevelFailed()
     {
-        _followerCamera.enabled = false;
-        _celebrationCamera.enabled = true;
+        resetCamera();
     }
 }

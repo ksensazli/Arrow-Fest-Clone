@@ -9,8 +9,7 @@ public class arrowController : MonoBehaviour
     public static Action<int> onArrowCountChanged;
     
     [SerializeField] private Transform _player;
-    [SerializeField] private GameObject _arrowObject;
-
+    public GameObject _arrowObject;
     [SerializeField] private float _slideSpeed = 0.01f;
     [SerializeField] private float _sideBounds = 2;
     [SerializeField] private float _lerpSpeed = 3;
@@ -215,7 +214,6 @@ public class arrowController : MonoBehaviour
             targetPosition.x += _inputManager.DragAmountX * _slideSpeed;
              targetPosition.x = Mathf.Clamp(targetPosition.x, -_sideBounds, _sideBounds);
         }
-        Debug.LogError(_inputManager.DragAmountX * _slideSpeed);
         Vector3 targetPositionLerp = new Vector3(Mathf.MoveTowards(_player.localPosition.x, targetPosition.x, Time.deltaTime * _lerpSpeed),
             Mathf.MoveTowards(_player.localPosition.y, targetPosition.y, Time.deltaTime * _lerpSpeed),
             Mathf.MoveTowards(_player.localPosition.z, targetPosition.z, Time.deltaTime * _lerpSpeed));
