@@ -17,7 +17,6 @@ public class gold : MonoBehaviour
   {
     transform.localScale = gold.transform.localScale;
     transform.SetPositionAndRotation(gold.transform.position, gold.transform.rotation);
-
     _goldAmount = goldAmount;
   }
 

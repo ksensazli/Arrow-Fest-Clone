@@ -25,10 +25,7 @@ public class arrowBuyButton : MonoBehaviour
     {
         if (_goldAmount > 50)
         {
-            for (int i = 0; i < _costArrow; i++)
-            {
-                _goldAmount--;
-            }
+            gold.OnGoldCollected?.Invoke(-50);
             _arrowAmount++;
             PlayerPrefs.SetInt("Arrow",_arrowAmount);
             PlayerPrefs.SetInt("Gold", _goldAmount);

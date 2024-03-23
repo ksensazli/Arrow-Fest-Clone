@@ -38,6 +38,5 @@ public class incomeEnhancer : MonoBehaviour
         {
             Debug.Log("Not enough gold for this upgrade");
         }
-        
     }
 }

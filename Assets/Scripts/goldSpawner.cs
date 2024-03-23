@@ -13,7 +13,7 @@ public class goldSpawner : MonoBehaviour
         {
             GameObject goldClone = objectPool.Instance.GetPooledObject(1);
             goldClone.SetActive(true);
-            goldClone.GetComponent<gold>().init(_goldObjects[i].transform,i+1);
+            goldClone.GetComponent<gold>().init(_goldObjects[i].transform,1);
         }
     }
 }
