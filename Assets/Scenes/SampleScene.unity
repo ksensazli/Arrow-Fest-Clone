@@ -1076,7 +1076,7 @@ GameObject:
   - component: {fileID: 216269163}
   - component: {fileID: 216269162}
   m_Layer: 5
-  m_Name: holdnmoveText
+  m_Name: tapToMoveText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1122,7 +1122,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HOLD & MOVE
+  m_text: TAP TO MOVE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 125cb55b44b24c4393181402bc6200e6, type: 2}
@@ -7578,7 +7578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1719912145}
   m_Layer: 5
-  m_Name: Hold&Move
+  m_Name: TapToMove
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
