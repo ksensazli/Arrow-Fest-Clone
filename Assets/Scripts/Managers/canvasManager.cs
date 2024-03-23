@@ -68,7 +68,7 @@ public class canvasManager : MonoBehaviour
 
     private void failedScreen()
     {
-        DOVirtual.DelayedCall(.2f, () => _failedScreen.SetActive(true)).OnComplete(() =>
+        DOVirtual.DelayedCall(1f, () => _failedScreen.SetActive(true)).OnComplete(() =>
         {
             _arrowController.SetActive(false);
         });
@@ -76,7 +76,7 @@ public class canvasManager : MonoBehaviour
 
     private void finishScreen()
     {
-        DOVirtual.DelayedCall(.2f, () => _finishScreen.SetActive(true)).OnComplete(() =>
+        DOVirtual.DelayedCall(1f, () => _finishScreen.SetActive(true)).OnComplete(() =>
         {
             _arrowController.SetActive(false);
         });
