@@ -7,12 +7,6 @@ public class gold : MonoBehaviour
   public static Action<int> OnGoldCollected;
   [SerializeField] private int _goldAmount;
 
-  private void OnEnable()
-  {
-    // transform.localScale = new Vector3(1, 1, .1f);
-    // transform.rotation = Quaternion.Euler(Vector3.zero);
-  }
-
   public void init(Transform gold, int goldAmount)
   {
     transform.localScale = gold.transform.localScale;

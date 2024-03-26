@@ -8,6 +8,7 @@ public class enemyControllerCharacter : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private Rigidbody[] _rigidbodies;
     [SerializeField] private Transform _enemy;
+    
     [Button]
     private void SetPreprocess()
     {
@@ -44,7 +45,7 @@ public class enemyControllerCharacter : MonoBehaviour
     }
 
     [Button]
-    private void ResetRigidbodies()
+    public void ResetRigidbodies()
     {
         _animator.enabled = true;
         foreach (var VARIABLE in _rigidbodies)

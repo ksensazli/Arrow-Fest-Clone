@@ -17,7 +17,7 @@ public class arrowController : MonoBehaviour
     private bool _isStart;
     private bool _isStopped;
     private bool _isEndLineReached;
-    [HideInInspector] public SplineFollower _splineFollower;
+    private SplineFollower _splineFollower;
     private inputManager _inputManager;
     public List<GameObject> arrowList = new List<GameObject>();
     public int arrowCount => arrowList.Count;
@@ -129,7 +129,6 @@ public class arrowController : MonoBehaviour
         gameManager.Instance.completeLevel();
         _arrowCollider.enabled = false;
         DOTween.Kill(_player.transform);
-        Debug.LogError("Finish Level");
         for (int i = 0; i < arrowCount; i++)
         {
             GameObject arrowClone = arrowList[^1 ];

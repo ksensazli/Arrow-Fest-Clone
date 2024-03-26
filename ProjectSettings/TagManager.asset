@@ -6,7 +6,7 @@ TagManager:
   tags:
   - arrow
   - gold
-  - endLine
+  - enemy
   layers:
   - Default
   - TransparentFX
