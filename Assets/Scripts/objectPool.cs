@@ -69,7 +69,7 @@ public class objectPool : MonoBehaviour
     {
         obj.SetActive(false);
         obj.transform.parent = transform;
-        obj.transform.rotation = Quaternion.Euler(Vector3.zero);
+        obj.transform.rotation = Quaternion.Euler(90,0,0);
         obj.transform.position = Vector3.zero;
     }
 

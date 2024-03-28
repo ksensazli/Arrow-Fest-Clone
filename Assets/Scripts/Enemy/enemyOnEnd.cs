@@ -14,7 +14,7 @@ public class enemyOnEnd : enemyControllerCharacter
                 GameObject arrowClone = objectPool.Instance.GetPooledObject(0);
                 arrowClone.SetActive(true);
                 arrowClone.transform.parent = _parentObject;
-                //arrowClone.transform.position = transform.position + Vector3.up * 1.3f;
+                arrowClone.transform.position = transform.position + Vector3.up * 1.3f;
             }
         }
     }
