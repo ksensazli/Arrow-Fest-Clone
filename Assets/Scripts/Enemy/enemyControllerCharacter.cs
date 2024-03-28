@@ -1,5 +1,4 @@
 using Sirenix.OdinInspector;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class enemyControllerCharacter : MonoBehaviour
@@ -7,7 +6,6 @@ public class enemyControllerCharacter : MonoBehaviour
     [SerializeField] private Rigidbody _hips;
     [SerializeField] private Animator _animator;
     [SerializeField] private Rigidbody[] _rigidbodies;
-    [SerializeField] private Transform _enemy;
     
     [Button]
     private void SetPreprocess()
@@ -40,7 +38,6 @@ public class enemyControllerCharacter : MonoBehaviour
         if (other.CompareTag("arrow"))
         {
             AddForce();
-            arrowController.Instance.killEnemy(_enemy);
         }
     }
 

@@ -1,6 +1,4 @@
 using System;
-using Dreamteck.Splines;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class gameManager : MonoBehaviour

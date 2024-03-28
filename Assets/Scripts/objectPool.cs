@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 [Serializable]
 public class Pool
@@ -36,6 +34,16 @@ public class objectPool : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        gameManager.onLevelCompleted += OnLevelCompleted;
+    }
+
+    private void OnDisable()
+    {
+        gameManager.onLevelCompleted -= OnLevelCompleted;
+    }
+
     public void addObjectToPool(int poolIndex)
     {
         GameObject objectClone = Instantiate(Pools[poolIndex].objectToPool);
@@ -61,5 +69,22 @@ public class objectPool : MonoBehaviour
     {
         obj.SetActive(false);
         obj.transform.parent = transform;
+        obj.transform.rotation = Quaternion.Euler(Vector3.zero);
+        obj.transform.position = Vector3.zero;
+    }
+
+    private void OnLevelCompleted()
+    {
+        Debug.Log("On Level Completed!");
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < Pools[i].pooledObject.Count; j++)
+            {
+                if(!Pools[i].pooledObject[j].activeInHierarchy)
+                {
+                    returnToPool(Pools[i].pooledObject[j]);
+                }
+            }
+        }
     }
 }

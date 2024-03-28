@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class incomeEnhancer : MonoBehaviour
@@ -28,6 +29,7 @@ public class incomeEnhancer : MonoBehaviour
             for (int i = 0; i < _costIncome; i++)
             {
                 _goldAmount--;
+                gold.OnGoldCollected(-1);
             }
             _incomeLevel += 1;
             PlayerPrefs.SetInt("Income", _incomeLevel);

@@ -1,8 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
-using Dreamteck;
 using UnityEngine;
 
 public class enemyPower : MonoBehaviour
